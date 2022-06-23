@@ -122,6 +122,10 @@
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
   </nav>
 </div>
 
@@ -193,7 +197,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-23 00:37:15" itemprop="dateModified" datetime="2022-06-23T00:37:15+08:00">2022-06-23</time>
+      <time title="修改时间：2022-06-23 08:24:21" itemprop="dateModified" datetime="2022-06-23T08:24:21+08:00">2022-06-23</time>
     </span>
 
   
@@ -241,7 +245,7 @@
 </li>
 </ol>
 <h2 id="3-博文更新"><a href="#3-博文更新" class="headerlink" title="3. 博文更新"></a>3. 博文更新</h2><p>有了helloword, 自然就想进行下一步，创建属于自己的博文。在&#x2F;blog&#x2F;source&#x2F;_posts目录下创建新文件，命名为First-blog.md。这里可以用</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo n &quot;文件名.文件后缀&quot;,</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo n &quot;文件名.文件后缀&quot;</span><br></pre></td></tr></table></figure>
 
 <p>来新建文件，也可以手动创建。然后开始自由创作吧！第一篇文章可以写写搭建博客过程的心路历程，当作纪念。</p>
 <p>创作完成后按下保存，然后命令行来到&#x2F;blog目录下，</p>
@@ -263,7 +267,7 @@
 
 <p>记得owner改成自己的github昵称。使用https需要github账号密码。</p>
 <blockquote>
-<p>这里可以换成ssh。使用ssh等于将本机添加到这个github账号的信任名单中，之后再对仓库进行操作就不用输入账号密码了。先搜索如何github ssh。完成后再来修改_config.yml, type不变， repo需修改为ssh的repo地址。如：repo: <a href="mailto:&#x67;&#105;&#116;&#x40;&#103;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#116;&#x40;&#103;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a>:owner&#x2F;owner.github.io.git。</p>
+<p>这里可以换成ssh。使用ssh等于将本机添加到这个github账号的信任名单中，之后再对仓库进行操作就不用输入账号密码了。先搜索如何github ssh。完成后再来修改_config.yml, type不变， repo需修改为ssh的repo地址。如：repo: <a href="mailto:&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#111;&#x6d;">&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#111;&#x6d;</a>:owner&#x2F;owner.github.io.git。</p>
 </blockquote>
 </li>
 <li><h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></li>
@@ -279,9 +283,10 @@
 <p>   修改完之后，五步走。</p>
    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo s</span><br><span class="line">//本地先看看http://localhost:4000有没有修改成功，自测一下。没问题就部署到远程仓库去。</span><br><span class="line">//ctrl+c停止本地</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
 
-<p>   此时已经部署完成，若网站没有即时更新，需要耐心等等。思考一下，why? </p>
-<p>   这里只更改了基本信息，想要更多个性化怎么办？去对应主题的github搜寻修改主题配置的方式吧。</p>
-<p>   网站此时是托管在github上面，域名也是。想换成自己的网站，怎么办？</p>
+<p>   此时已经部署完成，等待网站自动更新，再次打开博客地址就好了。</p>
+<p>   若网站没有即时更新，需要耐心等等。思考一下，why? </p>
+<p>   这里只更改了基本信息，想要更多个性化怎么办？</p>
+<p>   网站此时是托管在github上面，域名也是。想换成自己的网站和域名，怎么办？</p>
 <h1 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h1><p>建站遇到问题，很正常，不用怕。尝试清晰地描述自己做过的操作和发现的问题，能帮你更快地找到解决方案。</p>
 <p>博主一路上走走停停，却总是在第一步建站打圈。租过云服务器和域名，后面也放弃了。今天总算把第一步走完了，要坚持！后续会陆续更新大量文章，做一名输出型选手。</p>
 <p>我是唯天乐，一个正在探索费曼学习法的程序员。如果你有好的想法，欢迎邮箱联系我。</p>
