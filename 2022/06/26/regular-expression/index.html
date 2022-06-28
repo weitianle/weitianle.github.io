@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Regular Expression 正则表达式正则表达式用于字符串查找和匹配。 先自行思考接触过的正则表达式，然后再根据下文查漏补缺。 元字符\d				匹配数字 \w				匹配字母或数字或下划线或汉字 \s					匹配空白字符 ^					开始符号 $					结束符号 \b					匹配单词开始或结束 重复限定符.  			  匹配任意一个字符(换行符除外) \ 			  反斜杠转义 ？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="regular-expression.md">
+<meta property="og:url" content="http://example.com/2022/06/26/regular-expression/index.html">
+<meta property="og:site_name" content="Learn And Teach">
+<meta property="og:description" content="Regular Expression 正则表达式正则表达式用于字符串查找和匹配。 先自行思考接触过的正则表达式，然后再根据下文查漏补缺。 元字符\d				匹配数字 \w				匹配字母或数字或下划线或汉字 \s					匹配空白字符 ^					开始符号 $					结束符号 \b					匹配单词开始或结束 重复限定符.  			  匹配任意一个字符(换行符除外) \ 			  反斜杠转义 ？">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-26T01:01:24.000Z">
+<meta property="article:modified_time" content="2022-06-28T01:08:03.622Z">
+<meta property="article:author" content="Weitianle">
+<meta property="article:tag" content="tech">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/06/26/regular-expression/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/06/26/regular-expression/","path":"2022/06/26/regular-expression/","title":"regular-expression.md"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>regular-expression.md | Learn And Teach</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Learn And Teach</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Regular-Expression-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">Regular Expression 正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E5%AD%97%E7%AC%A6"><span class="nav-number">1.1.</span> <span class="nav-text">元字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%A4%8D%E9%99%90%E5%AE%9A%E7%AC%A6"><span class="nav-number">1.2.</span> <span class="nav-text">重复限定符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84"><span class="nav-number">1.3.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%96"><span class="nav-number">1.4.</span> <span class="nav-text">或</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E9%97%B4"><span class="nav-number">1.5.</span> <span class="nav-text">区间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">1.6.</span> <span class="nav-text">进阶知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%B6%E5%AE%BD%E6%96%AD%E8%A8%80"><span class="nav-number">1.6.1.</span> <span class="nav-text">零宽断言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E5%85%88%E8%A1%8C"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">正向先行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E5%90%8E%E8%A1%8C"><span class="nav-number">1.6.1.2.</span> <span class="nav-text">正向后行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9F%E5%90%91%E5%85%88%E8%A1%8C"><span class="nav-number">1.6.1.3.</span> <span class="nav-text">负向先行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9F%E5%90%91%E5%90%8E%E8%A1%8C"><span class="nav-number">1.6.1.4.</span> <span class="nav-text">负向后行</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%95%E8%8E%B7%E5%92%8C%E9%9D%9E%E6%8D%95%E8%8E%B7"><span class="nav-number">1.7.</span> <span class="nav-text">捕获和非捕获</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E7%BC%96%E5%8F%B7%E6%8D%95%E8%8E%B7%E7%BB%84"><span class="nav-number">1.7.0.1.</span> <span class="nav-text">数字编号捕获组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E7%BC%96%E5%8F%B7%E6%8D%95%E8%8E%B7%E7%BB%84"><span class="nav-number">1.7.0.2.</span> <span class="nav-text">命名编号捕获组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E6%8D%95%E8%8E%B7%E7%BB%84"><span class="nav-number">1.7.0.3.</span> <span class="nav-text">非捕获组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E5%BC%95%E7%94%A8"><span class="nav-number">1.7.0.4.</span> <span class="nav-text">反向引用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.8.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9D%9F%E8%AF%AD"><span class="nav-number">1.9.</span> <span class="nav-text">结束语</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Weitianle</p>
+  <div class="site-description" itemprop="description">Stay hungry</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/26/regular-expression/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weitianle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn And Teach">
+      <meta itemprop="description" content="Stay hungry">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="regular-expression.md | Learn And Teach">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          regular-expression.md
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-26 09:01:24" itemprop="dateCreated datePublished" datetime="2022-06-26T09:01:24+08:00">2022-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-28 09:08:03" itemprop="dateModified" datetime="2022-06-28T09:08:03+08:00">2022-06-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Regular-Expression-正则表达式"><a href="#Regular-Expression-正则表达式" class="headerlink" title="Regular Expression 正则表达式"></a>Regular Expression 正则表达式</h1><p>正则表达式用于字符串查找和匹配。</p>
+<p>先自行思考接触过的正则表达式，然后再根据下文查漏补缺。</p>
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p>\d				匹配数字</p>
+<p>\w				匹配字母或数字或下划线或汉字</p>
+<p>\s					匹配空白字符</p>
+<p>^					开始符号</p>
+<p>$					结束符号</p>
+<p>\b					匹配单词开始或结束</p>
+<h2 id="重复限定符"><a href="#重复限定符" class="headerlink" title="重复限定符"></a>重复限定符</h2><p>.  			  匹配任意一个字符(换行符除外)</p>
+<p>\ 			  反斜杠转义</p>
+<p>？			 匹配0次或一次</p>
+<p>*			   匹配0次或多次</p>
+<p>+				匹配1次或多次</p>
+<p>{n} 	        重复n次</p>
+<p>{n, }		   重复n次或更多次</p>
+<p>{n, m}		 重复n-m次</p>
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><p>（） 小括号括起来为一组</p>
+<h2 id="或"><a href="#或" class="headerlink" title="或"></a>或</h2><p>｜  eg: ^(189 | 180 | 177)\d{8} $</p>
+<h2 id="区间"><a href="#区间" class="headerlink" title="区间"></a>区间</h2><p>[0-9]、[a-z]、[]. </p>
+<h2 id="进阶知识点"><a href="#进阶知识点" class="headerlink" title="进阶知识点"></a>进阶知识点</h2><h3 id="零宽断言"><a href="#零宽断言" class="headerlink" title="零宽断言"></a>零宽断言</h3><p>断言： 指定内容前后会有满足规则的内容。</p>
+<p>零宽：没有宽度，指指匹配位置，不匹配断言本身。</p>
+<p>即零宽返回值都不包含以下例子中的pattern。</p>
+<h4 id="正向先行"><a href="#正向先行" class="headerlink" title="正向先行"></a>正向先行</h4><p>?&#x3D; pattern， 匹配pattern前面的内容。</p>
+<h4 id="正向后行"><a href="#正向后行" class="headerlink" title="正向后行"></a>正向后行</h4><p>?&lt;&#x3D;pattern, 匹配pattern后面的内容</p>
+<h4 id="负向先行"><a href="#负向先行" class="headerlink" title="负向先行"></a>负向先行</h4><p>?!pattern， 匹配非pattern的前面内容。</p>
+<h4 id="负向后行"><a href="#负向后行" class="headerlink" title="负向后行"></a>负向后行</h4><p>?&lt;!pattern, 匹配非pattern的后面内容。</p>
+<h2 id="捕获和非捕获"><a href="#捕获和非捕获" class="headerlink" title="捕获和非捕获"></a>捕获和非捕获</h2><p>捕获一般与分组联系在一起。</p>
+<h4 id="数字编号捕获组"><a href="#数字编号捕获组" class="headerlink" title="数字编号捕获组"></a>数字编号捕获组</h4><p>(exp)	表达式从左往右，遇到左括号就分一个组。第0组为整个表达式，但不计入分组数量。</p>
+<p>(0\d{2})-(\d{8})</p>
+<h4 id="命名编号捕获组"><a href="#命名编号捕获组" class="headerlink" title="命名编号捕获组"></a>命名编号捕获组</h4><p>(?<name>exp) , 可以用命名来区分组。</p>
+<p>(?<quhao>\0\d{2})-(?<haoma>\d{8})</p>
+<h4 id="非捕获组"><a href="#非捕获组" class="headerlink" title="非捕获组"></a>非捕获组</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(?:exp)</span><br><span class="line">为避免捕获组分组占用内存，只进行分组，内容不捕获到组里。</span><br><span class="line">比如要匹配一些用（）保证顺序，验证日期的时候。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p> (?:0\d{2})-(\d{8})</p>
+<h4 id="反向引用"><a href="#反向引用" class="headerlink" title="反向引用"></a>反向引用</h4><p>\捕获组编号</p>
+<p>基础正则表达式没有记忆能力，所以要用捕获和引用才能记住之前搜过的。</p>
+<p>eg: 先捕获一个组，根据数字编号就可以再次用它。</p>
+<p>(\w)\1</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>正则内容暂时就写到这，以前也只学过简单内容，没想到还有进阶内容。熟能生巧，正则这玩意儿还是得靠多多练习。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/tech/" rel="tag"># tech</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/22/First-blog/" rel="prev" title="First blog :个人博客搭建">
+                  <i class="fa fa-chevron-left"></i> First blog :个人博客搭建
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weitianle</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

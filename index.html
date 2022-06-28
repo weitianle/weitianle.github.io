@@ -118,12 +118,12 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -152,6 +152,120 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/26/regular-expression/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weitianle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn And Teach">
+      <meta itemprop="description" content="Stay hungry">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Learn And Teach">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/06/26/regular-expression/" class="post-title-link" itemprop="url">regular-expression.md</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-26 09:01:24" itemprop="dateCreated datePublished" datetime="2022-06-26T09:01:24+08:00">2022-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-28 09:08:03" itemprop="dateModified" datetime="2022-06-28T09:08:03+08:00">2022-06-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Regular-Expression-正则表达式"><a href="#Regular-Expression-正则表达式" class="headerlink" title="Regular Expression 正则表达式"></a>Regular Expression 正则表达式</h1><p>正则表达式用于字符串查找和匹配。</p>
+<p>先自行思考接触过的正则表达式，然后再根据下文查漏补缺。</p>
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p>\d				匹配数字</p>
+<p>\w				匹配字母或数字或下划线或汉字</p>
+<p>\s					匹配空白字符</p>
+<p>^					开始符号</p>
+<p>$					结束符号</p>
+<p>\b					匹配单词开始或结束</p>
+<h2 id="重复限定符"><a href="#重复限定符" class="headerlink" title="重复限定符"></a>重复限定符</h2><p>.  			  匹配任意一个字符(换行符除外)</p>
+<p>\ 			  反斜杠转义</p>
+<p>？			 匹配0次或一次</p>
+<p>*			   匹配0次或多次</p>
+<p>+				匹配1次或多次</p>
+<p>{n} 	        重复n次</p>
+<p>{n, }		   重复n次或更多次</p>
+<p>{n, m}		 重复n-m次</p>
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><p>（） 小括号括起来为一组</p>
+<h2 id="或"><a href="#或" class="headerlink" title="或"></a>或</h2><p>｜  eg: ^(189 | 180 | 177)\d{8} $</p>
+<h2 id="区间"><a href="#区间" class="headerlink" title="区间"></a>区间</h2><p>[0-9]、[a-z]、[]. </p>
+<h2 id="进阶知识点"><a href="#进阶知识点" class="headerlink" title="进阶知识点"></a>进阶知识点</h2><h3 id="零宽断言"><a href="#零宽断言" class="headerlink" title="零宽断言"></a>零宽断言</h3><p>断言： 指定内容前后会有满足规则的内容。</p>
+<p>零宽：没有宽度，指指匹配位置，不匹配断言本身。</p>
+<p>即零宽返回值都不包含以下例子中的pattern。</p>
+<h4 id="正向先行"><a href="#正向先行" class="headerlink" title="正向先行"></a>正向先行</h4><p>?&#x3D; pattern， 匹配pattern前面的内容。</p>
+<h4 id="正向后行"><a href="#正向后行" class="headerlink" title="正向后行"></a>正向后行</h4><p>?&lt;&#x3D;pattern, 匹配pattern后面的内容</p>
+<h4 id="负向先行"><a href="#负向先行" class="headerlink" title="负向先行"></a>负向先行</h4><p>?!pattern， 匹配非pattern的前面内容。</p>
+<h4 id="负向后行"><a href="#负向后行" class="headerlink" title="负向后行"></a>负向后行</h4><p>?&lt;!pattern, 匹配非pattern的后面内容。</p>
+<h2 id="捕获和非捕获"><a href="#捕获和非捕获" class="headerlink" title="捕获和非捕获"></a>捕获和非捕获</h2><p>捕获一般与分组联系在一起。</p>
+<h4 id="数字编号捕获组"><a href="#数字编号捕获组" class="headerlink" title="数字编号捕获组"></a>数字编号捕获组</h4><p>(exp)	表达式从左往右，遇到左括号就分一个组。第0组为整个表达式，但不计入分组数量。</p>
+<p>(0\d{2})-(\d{8})</p>
+<h4 id="命名编号捕获组"><a href="#命名编号捕获组" class="headerlink" title="命名编号捕获组"></a>命名编号捕获组</h4><p>(?<name>exp) , 可以用命名来区分组。</p>
+<p>(?<quhao>\0\d{2})-(?<haoma>\d{8})</p>
+<h4 id="非捕获组"><a href="#非捕获组" class="headerlink" title="非捕获组"></a>非捕获组</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(?:exp)</span><br><span class="line">为避免捕获组分组占用内存，只进行分组，内容不捕获到组里。</span><br><span class="line">比如要匹配一些用（）保证顺序，验证日期的时候。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p> (?:0\d{2})-(\d{8})</p>
+<h4 id="反向引用"><a href="#反向引用" class="headerlink" title="反向引用"></a>反向引用</h4><p>\捕获组编号</p>
+<p>基础正则表达式没有记忆能力，所以要用捕获和引用才能记住之前搜过的。</p>
+<p>eg: 先捕获一个组，根据数字编号就可以再次用它。</p>
+<p>(\w)\1</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>正则内容暂时就写到这，以前也只学过简单内容，没想到还有进阶内容。熟能生巧，正则这玩意儿还是得靠多多练习。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -197,7 +311,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-23 08:24:21" itemprop="dateModified" datetime="2022-06-23T08:24:21+08:00">2022-06-23</time>
+      <time title="修改时间：2022-06-23 09:26:58" itemprop="dateModified" datetime="2022-06-23T09:26:58+08:00">2022-06-23</time>
     </span>
 
   
@@ -267,7 +381,7 @@
 
 <p>记得owner改成自己的github昵称。使用https需要github账号密码。</p>
 <blockquote>
-<p>这里可以换成ssh。使用ssh等于将本机添加到这个github账号的信任名单中，之后再对仓库进行操作就不用输入账号密码了。先搜索如何github ssh。完成后再来修改_config.yml, type不变， repo需修改为ssh的repo地址。如：repo: <a href="mailto:&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#111;&#x6d;">&#103;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#111;&#x6d;</a>:owner&#x2F;owner.github.io.git。</p>
+<p>这里可以换成ssh。使用ssh等于将本机添加到这个github账号的信任名单中，之后再对仓库进行操作就不用输入账号密码了。先搜索如何github ssh。完成后再来修改_config.yml, type不变， repo需修改为ssh的repo地址。如：repo: <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#x63;&#111;&#109;">&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#x63;&#111;&#109;</a>:owner&#x2F;owner.github.io.git。</p>
 </blockquote>
 </li>
 <li><h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></li>
