@@ -20,25 +20,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Stay hungry">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Learn And Teach">
-<meta property="og:url" content="http://example.com/tags/dev-env/index.html">
+    <meta name="description" content="常用http状态码分类： 1. 信息类 100预请求成功，可继续。 101切换协议   成功    200成功，201创建了资源。202接受但没处理完。204处理成功但无返回。206成功处理部分。 重定向  301已永久移动到新地址，302临时移动到新地址。304请求的资源未修改，服务器不返回资源，可继续用缓存。305代理。 客户端。400 客户端语法错误，服务器无法理解。401 未登录，要身份验">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http-status-code.md">
+<meta property="og:url" content="http://example.com/2022/06/29/http-status-code/index.html">
 <meta property="og:site_name" content="Learn And Teach">
-<meta property="og:description" content="Stay hungry">
+<meta property="og:description" content="常用http状态码分类： 1. 信息类 100预请求成功，可继续。 101切换协议   成功    200成功，201创建了资源。202接受但没处理完。204处理成功但无返回。206成功处理部分。 重定向  301已永久移动到新地址，302临时移动到新地址。304请求的资源未修改，服务器不返回资源，可继续用缓存。305代理。 客户端。400 客户端语法错误，服务器无法理解。401 未登录，要身份验">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-29T06:27:54.000Z">
+<meta property="article:modified_time" content="2022-06-29T07:07:09.854Z">
 <meta property="article:author" content="Weitianle">
+<meta property="article:tag" content="network">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/tags/dev-env/">
+<link rel="canonical" href="http://example.com/2022/06/29/http-status-code/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"tags/dev-env/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/06/29/http-status-code/","path":"2022/06/29/http-status-code/","title":"http-status-code.md"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>标签: dev-env | Learn And Teach</title>
+<title>http-status-code.md | Learn And Teach</title>
   
 
 
@@ -93,7 +96,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -106,6 +109,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8http%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">常用http状态码</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -151,50 +155,105 @@
 </noscript>
 
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">dev-env
-          <small>标签</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/http-status-code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weitianle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn And Teach">
+      <meta itemprop="description" content="Stay hungry">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="http-status-code.md | Learn And Teach">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          http-status-code.md
         </h1>
-      </div>
 
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+
+      <time title="创建时间：2022-06-29 14:27:54 / 修改时间：15:07:09" itemprop="dateCreated datePublished" datetime="2022-06-29T14:27:54+08:00">2022-06-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="常用http状态码"><a href="#常用http状态码" class="headerlink" title="常用http状态码"></a>常用http状态码</h1><p>分类：</p>
+<pre><code>1. 信息类 100预请求成功，可继续。 101切换协议
+</code></pre>
+<ol start="2">
+<li>成功    200成功，201创建了资源。202接受但没处理完。204处理成功但无返回。206成功处理部分。</li>
+<li>重定向  301已永久移动到新地址，302临时移动到新地址。304请求的资源未修改，服务器不返回资源，可继续用缓存。305代理。</li>
+<li>客户端。400 客户端语法错误，服务器无法理解。401 未登录，要身份验证。403 拒绝执行。404找不到资源。405 方法被禁止。</li>
+<li>服务器端 500服务器内部错误，无法完成请求。常见异常。 501不支持功能。502网关错误。 503超时。504网关超时。505 http协议超时。</li>
+</ol>
+<p>这类码，需要经常接触才能熟悉。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/http/http-status-codes.html">https://www.runoob.com/http/http-status-codes.html</a></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-06-22T21:00:32+08:00"
-              content="2022-06-22">
-          06-22
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/06/22/First-blog/" itemprop="url">
-            <span itemprop="name">First blog :个人博客搭建</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/network/" rel="tag"># network</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/26/regular-expression/" rel="prev" title="regular-expression.md">
+                  <i class="fa fa-chevron-left"></i> regular-expression.md
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/29/mvcc/" rel="next" title="mvcc">
+                  mvcc <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-    </div>
-  </div>
-  
-  
-  
+
+
+
+
 
 </div>
   </main>
