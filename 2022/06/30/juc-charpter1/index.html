@@ -23,7 +23,7 @@
     <meta name="description" content="Java并发编程笔记（一）并发编程是为了更快，但有些时候并发不比串行快。 理解并发，就要优先对比串行和并发的差异。 1.上下文切换单核也有多线程并发，cpu分配非常短的时间片（几十ms）给每个线程，每个线程执行完就要切，所以会频繁地切换。任务从被保存到再次被加载的过程，就叫上下文切换。对于java来说，每次线程从waiting到runnable都会进行一次上下文切换。 如何减少上下文切换？ 无锁并">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java concurrency charpter one">
-<meta property="og:url" content="http://example.com/2022/06/30/java-concurrency-charpter-one/index.html">
+<meta property="og:url" content="http://example.com/2022/06/30/juc-charpter1/index.html">
 <meta property="og:site_name" content="Learn And Teach">
 <meta property="og:description" content="Java并发编程笔记（一）并发编程是为了更快，但有些时候并发不比串行快。 理解并发，就要优先对比串行和并发的差异。 1.上下文切换单核也有多线程并发，cpu分配非常短的时间片（几十ms）给每个线程，每个线程执行完就要切，所以会频繁地切换。任务从被保存到再次被加载的过程，就叫上下文切换。对于java来说，每次线程从waiting到runnable都会进行一次上下文切换。 如何减少上下文切换？ 无锁并">
 <meta property="og:locale" content="zh_CN">
@@ -34,11 +34,11 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2022/06/30/java-concurrency-charpter-one/">
+<link rel="canonical" href="http://example.com/2022/06/30/juc-charpter1/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/06/30/java-concurrency-charpter-one/","path":"2022/06/30/java-concurrency-charpter-one/","title":"java concurrency charpter one"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/06/30/juc-charpter1/","path":"2022/06/30/juc-charpter1/","title":"java concurrency charpter one"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>java concurrency charpter one | Learn And Teach</title>
@@ -122,7 +122,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/30/java-concurrency-charpter-one/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/30/juc-charpter1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -264,6 +264,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/06/30/juc-charpter2/" rel="next" title="java-concurrency-charpter-two">
+                  java-concurrency-charpter-two <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>

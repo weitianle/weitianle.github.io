@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -161,7 +161,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/30/java-concurrency-charpter-one/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/30/juc-charpter2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -179,7 +179,266 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/30/java-concurrency-charpter-one/" class="post-title-link" itemprop="url">java concurrency charpter one</a>
+          <a href="/2022/06/30/juc-charpter2/" class="post-title-link" itemprop="url">java-concurrency-charpter-two</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-30 15:14:25" itemprop="dateCreated datePublished" datetime="2022-06-30T15:14:25+08:00">2022-06-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-04 11:02:48" itemprop="dateModified" datetime="2022-07-04T11:02:48+08:00">2022-07-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="JUC-charpter-two-底层实现原理"><a href="#JUC-charpter-two-底层实现原理" class="headerlink" title="JUC-charpter two-底层实现原理"></a>JUC-charpter two-底层实现原理</h1><h2 id="2-1-volatile"><a href="#2-1-volatile" class="headerlink" title="2.1 volatile"></a>2.1 volatile</h2><ol>
+<li><p>volatile最关键的特性：可见性</p>
+<p>可见性、防止指令重排序。</p>
+<p>可见性：多线程共享变量，一个线程修改时，另一个线程也能读到。</p>
+<p>​	实现：用lock前缀指令会引起处理器缓存回写到内存，此时通过处理器缓存一致性协议保证一致性。</p>
+<p>特点：无需加锁，允许线程访问共享变量，线程用排他锁获取。但使用volatile不需加锁，保证可见性，无需上下文切换。‘</p>
+<p>性能优化：追加字节</p>
+</li>
+</ol>
+<h3 id="2-2-synchronized的实现原理"><a href="#2-2-synchronized的实现原理" class="headerlink" title="2.2 synchronized的实现原理"></a>2.2 synchronized的实现原理</h3><ol>
+<li><p>属性：锁</p>
+</li>
+<li><p>锁谁？</p>
+<ul>
+<li>synchronized void method() {}     普通同步方法 锁当前实例</li>
+<li>synchronized static void method() {} 静态同步方法 锁类Class对象</li>
+<li>synchronized(Object) {}。同步方法块（代码块），括号里是谁就锁谁</li>
+</ul>
+<ol start="3">
+<li>怎么锁的？</li>
+</ol>
+<p>都可以用monitor对象实现的，monitorenter 和monitorexit配套使用。拿到monitor即拿到锁。</p>
+<p>锁存在哪里？</p>
+<p>​	在java对象头。</p>
+<p>​	那对象头是什么？</p>
+<p>​		存储java对象信息的地方</p>
+<p>对象头长度：数组3字，非数组2字。</p>
+<table>
+<thead>
+<tr>
+<th>长度</th>
+<th>内容</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32&#x2F;64</td>
+<td>Mark Word</td>
+<td align="center">存储对象的hashcode或锁信息</td>
+</tr>
+<tr>
+<td></td>
+<td>Class Metadata Address</td>
+<td align="center">存储到对象类型数据的指针</td>
+</tr>
+<tr>
+<td></td>
+<td>Array length</td>
+<td align="center">对象数组长度（如果是数组的话）</td>
+</tr>
+</tbody></table>
+<p>对象头存储结构：</p>
+<p> 其中有mark word。用于存储hashcode 分代年龄、和锁标记位。</p>
+<table>
+<thead>
+<tr>
+<th>锁状态</th>
+<th>25bit</th>
+<th>4bit</th>
+<th>1bit 是否偏向锁</th>
+<th>2bit 锁标志位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>无锁</td>
+<td>对象hashcode</td>
+<td>对象分代年龄</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>轻量级锁</td>
+<td>指向栈中锁记录的指针(30bit)</td>
+<td></td>
+<td></td>
+<td>00</td>
+</tr>
+<tr>
+<td>重量级锁</td>
+<td>指向互斥量的指针(30)</td>
+<td></td>
+<td></td>
+<td>10</td>
+</tr>
+<tr>
+<td>GC标记</td>
+<td>空</td>
+<td></td>
+<td></td>
+<td>11</td>
+</tr>
+<tr>
+<td>偏向锁</td>
+<td>线程id、epoch(用时间戳表示有效性)</td>
+<td>对象分代年龄</td>
+<td></td>
+<td>01</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>具体锁的过程？</p>
+<ul>
+<li><p>首先是偏向锁： 大多数情况下，都是同一个线程多次进入同步块。为了降低获得锁的消耗，使用偏向锁。</p>
+<ul>
+<li><p>过程：</p>
+<ul>
+<li><p>线程进入同步块前：</p>
+<p>栈帧创建空间用来存锁记录，将对象头里的信息暂存到栈帧中。用CAS将线程id放进对象头和栈帧锁记录中。然后进入同步块执行代码。</p>
+</li>
+<li><p>再次进入：</p>
+<p>不需要CAS加锁和解锁了，只要对比对象头里的线程id和栈帧里的线程id是否一致：</p>
+<ul>
+<li>若一致：直接进</li>
+</ul>
+<ul>
+<li>若不一致，检查偏向锁是否设置成了1。如果设置了，则用CAS修改对象头里的线程id。如果没有，则用CAS竞争锁。</li>
+</ul>
+</li>
+<li><p>用完了，要撤销：</p>
+<ul>
+<li>竞争出现了才会撤销，不然对象头里还是会存当前线程id.</li>
+<li>过程：<ul>
+<li>先暂停拥有偏向锁的线程，检查它是否活动，不活动则恢复无锁。若活动，说明此时发生竞争。但偏向锁的初衷就是同一个线程多次进入，这里就不再适用偏向锁了。所以要么偏向其他线程，要么恢复无锁或标记该线程不适合作为偏向锁。</li>
+<li>唤醒暂停的线程。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>可以不用，设置jvm参数。此时就会默认进入轻量级锁。</p>
+</li>
+</ul>
+</li>
+<li><p>来到轻量级锁</p>
+<ul>
+<li><p>过程：</p>
+<ul>
+<li><p>线程进入同步块前：</p>
+<p>栈帧创建空间，存储锁记录。对象头的mark word先复制到锁记录中。然后CAS尝试将mark word替换为指向栈帧中锁记录的指针 ，若成功则拿到锁，否则有人竞争，开始自旋。</p>
+<p>自旋：会消耗cpu,  锁升级成重量级锁后，其他线程不会再自旋获取锁，会直接阻塞。只有锁释放后才会唤醒，重新争夺。</p>
+</li>
+<li><p>解锁：</p>
+<ul>
+<li>CAS将栈帧中的锁记录替换回对象头，如果成功则没有竞争，解锁成功。否则表示有竞争，锁膨胀成重量级锁，且不会再恢复成轻量级锁。</li>
+<li>mark word指向互斥量，标记为重量级锁，不再指向锁记录地址。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>重量级锁</p>
+</li>
+</ul>
+<p>​</p>
+</li>
+</ol>
+<p>	</p>
+<h3 id="2-3-原子操作"><a href="#2-3-原子操作" class="headerlink" title="2.3 原子操作"></a>2.3 原子操作</h3><p>定义：不可被中断的一个或一系列操作。</p>
+<p>处理器通过缓存加锁和总线加锁：</p>
+<ul>
+<li><p>总线加锁</p>
+<p>声言一个LOCK # 信号，告诉我要独占。其他线程请求会阻塞。cpu和内存暂停通信，效率低。</p>
+</li>
+<li><p>缓存加锁</p>
+<p>修改内部内存地址，允许缓存一致性机制。</p>
+</li>
+</ul>
+<p>java通过锁和CAS原子操作：</p>
+<ul>
+<li><p>循环CAS</p>
+<p>处理器提供的指令。</p>
+<p>问题：</p>
+<ol>
+<li>ABA问题，在比较过程中，A被其他线程改成了B又改回了A, 此时CAS认为可以更新。 处理： 版本号：1A 2B 3C， java中提供一个类（引用和标志）。</li>
+<li>循环时间长开销变大，解决：jvm支持处理器的pause。</li>
+<li>只能保证一个共享变量。解决：用锁、合并成一个变量、放在对象里。</li>
+</ol>
+</li>
+<li><p>锁</p>
+<p>锁住资源再更新。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/30/juc-charpter1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weitianle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn And Teach">
+      <meta itemprop="description" content="Stay hungry">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Learn And Teach">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/06/30/juc-charpter1/" class="post-title-link" itemprop="url">java concurrency charpter one</a>
         </h2>
 
         <div class="post-meta-container">
@@ -708,7 +967,7 @@
 
 <p>记得owner改成自己的github昵称。使用https需要github账号密码。</p>
 <blockquote>
-<p>这里可以换成ssh。使用ssh等于将本机添加到这个github账号的信任名单中，之后再对仓库进行操作就不用输入账号密码了。先搜索如何github ssh。完成后再来修改_config.yml, type不变， repo需修改为ssh的repo地址。如：repo: <a href="mailto:&#x67;&#x69;&#x74;&#x40;&#x67;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#111;&#x6d;">&#x67;&#x69;&#x74;&#x40;&#x67;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#111;&#x6d;</a>:owner&#x2F;owner.github.io.git。</p>
+<p>这里可以换成ssh。使用ssh等于将本机添加到这个github账号的信任名单中，之后再对仓库进行操作就不用输入账号密码了。先搜索如何github ssh。完成后再来修改_config.yml, type不变， repo需修改为ssh的repo地址。如：repo: <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;">&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;</a>:owner&#x2F;owner.github.io.git。</p>
 </blockquote>
 </li>
 <li><h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></li>
@@ -1055,134 +1314,6 @@
 </li>
 </ol>
 <p>7</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/01/%E5%9B%BE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Weitianle">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Learn And Teach">
-      <meta itemprop="description" content="Stay hungry">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Learn And Teach">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/01/%E5%9B%BE/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-01 07:57:06" itemprop="dateCreated datePublished" datetime="2022-06-01T07:57:06+08:00">2022-06-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-02 10:51:27" itemprop="dateModified" datetime="2022-06-02T10:51:27+08:00">2022-06-02</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//点</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Vertex</span> &#123;</span><br><span class="line">    <span class="type">int</span> label;</span><br><span class="line">    Vertex[] neighbors;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 邻接表</span></span><br><span class="line">List&lt;Integer&gt;[] graph;</span><br><span class="line">List&lt;<span class="type">int</span>[]&gt;[] graph;<span class="comment">//带权重</span></span><br><span class="line"><span class="comment">//邻接矩阵</span></span><br><span class="line"><span class="type">boolean</span>[][] matrix;</span><br><span class="line"><span class="type">int</span>[][] matrix; <span class="comment">//带权重</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="度"><a href="#度" class="headerlink" title="度"></a>度</h2><p>对于有向图，每个节点有出度和入度。</p>
-<h2 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h2><p>首先看多叉树的遍历。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> ;</span><br><span class="line">    <span class="keyword">for</span> (TreeNode child : root.children) &#123;</span><br><span class="line">        traverse(child);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>注意，图可能成环，所以要用visit[]数组记录辅助遍历。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">boolean</span>[] visited;</span><br><span class="line"><span class="type">boolean</span>[] path;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(Graph graph, <span class="type">int</span> s)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (visited[s]) <span class="keyword">return</span>;</span><br><span class="line">    visited[s] = <span class="literal">true</span>;</span><br><span class="line">    path[s] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> neighbor : graph.neighbor(s)) &#123;</span><br><span class="line">        traverse(graph, neighbor);</span><br><span class="line">    &#125;</span><br><span class="line">    path[s] = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//path类似回溯算法的做选择和撤销选择，但在for循环外，是包含树根节点的，而回溯是选择子树的过程，看重树枝。</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><pre><code>1. 所有可能路径
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">allPathsSourceTarget</span><span class="params">(<span class="type">int</span>[][] graph)</span> &#123;</span><br><span class="line">    LinkedList&lt;Integer&gt; path = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    traverse(graph, <span class="number">0</span>, path);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(<span class="type">int</span>[][] graph, <span class="type">int</span> s, LinkedList&lt;Integer&gt; path)</span> &#123;</span><br><span class="line">    path.addLast(s);</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> graph.length;</span><br><span class="line">    <span class="keyword">if</span> (s == n-<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">//到达终点</span></span><br><span class="line">        <span class="comment">//需要拷贝path, 不然会全空</span></span><br><span class="line">        res.add(<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;(path));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> v : graph[s]) &#123;</span><br><span class="line">        <span class="comment">//neighbor处理</span></span><br><span class="line">        traverse(graph, v, path);</span><br><span class="line">    &#125;</span><br><span class="line">    path.removeLast();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">LinkedList&lt;LinkedList&lt;Integer&gt;&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">allPath</span><span class="params">(<span class="type">int</span>[][] graph)</span> &#123;</span><br><span class="line">    LinkedList&lt;Integer&gt; path = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    traverse(graph, <span class="number">0</span> , path);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(<span class="type">int</span>[][] graph, <span class="type">int</span> s , LinkedList&lt;Integer&gt; path)</span> &#123;</span><br><span class="line">    path.addLast(s);</span><br><span class="line">    <span class="keyword">if</span> (s == n - <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">//到达终点</span></span><br><span class="line">        res.add(<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;(path));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> v : graph[s]) &#123;</span><br><span class="line">        traverse(graph, v, path);</span><br><span class="line">    &#125;</span><br><span class="line">    path.removeLast();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<pre><code>2. 课程表
-</code></pre>
-<p>&#x2F;&#x2F; 判断是否成环</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">boolean</span>[] visited;</span><br><span class="line"><span class="type">boolean</span>[] onPath;</span><br><span class="line"><span class="type">boolean</span> <span class="variable">hasCycle</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">canFinish</span><span class="params">(<span class="type">int</span> numCourses, <span class="type">int</span>[][] prerequisites)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph = buildGraph(numCourses, prerequisites);</span><br><span class="line">    visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[numCourses];</span><br><span class="line">    onPath = <span class="keyword">new</span> <span class="title class_">boolean</span>[numCourses];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; numCourses; i++) &#123;</span><br><span class="line">        traverse(graph, i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> !hasCycle;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">List&lt;Integer&gt;[] buildGraph(<span class="type">int</span> numCourses, <span class="type">int</span>[][] prerequisites) &#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph = <span class="keyword">new</span> <span class="title class_">LinkedList</span>[numCourses];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; numCourses; i++) &#123;</span><br><span class="line">        graph[i] = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] e : prerequistites) &#123;</span><br><span class="line">        <span class="comment">//边处理,[a, b]表示b指向a</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">from</span> <span class="operator">=</span> e[<span class="number">1</span>], to = e[<span class="number">0</span>];</span><br><span class="line">        graph[from].add(to);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> graph;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(List&lt;Integer&gt;[] graph, <span class="type">int</span> s)</span> &#123;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">if</span> (onPath[s]) &#123;</span><br><span class="line">        hasCycle = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (visited[s] || hasCycle) &#123;</span><br><span class="line">       <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    visited[s] = <span class="literal">true</span>;</span><br><span class="line">    onPath[s] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> t :  graph[s]) &#123;</span><br><span class="line">        traverse(graph, t);</span><br><span class="line">    &#125;</span><br><span class="line">    onPath[s] = <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 图是否成环</span></span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span> hasCycle;</span><br><span class="line"><span class="type">boolean</span> visited[];</span><br><span class="line"><span class="type">boolean</span> onPath[];</span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canFinish</span><span class="params">(<span class="type">int</span> numCourses, <span class="type">int</span>[][] v)</span> &#123;</span><br><span class="line">    <span class="comment">//先建立图</span></span><br><span class="line">    List&lt;Integer&gt;[] graph = buildGraph(numCourses, v);</span><br><span class="line">    onPath = <span class="keyword">new</span> <span class="title class_">boolean</span>[numCourses];</span><br><span class="line">    visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[numCourses];</span><br><span class="line">    <span class="comment">//每个顶点逐个遍历</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i : numCourses) &#123;</span><br><span class="line">        traverse(graph, i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> !hasCycle;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    根据顶点数量和边构造图邻接表</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> List&lt;Integer&gt;[] buildGraph(<span class="type">int</span> numCourses, <span class="type">int</span>[][] v) &#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph = <span class="keyword">new</span> <span class="title class_">LinkedList</span>[numCourses];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;numCourses; i++) &#123;</span><br><span class="line">        graph[i] = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] e : v) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">from</span> <span class="operator">=</span> e[<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">to</span> <span class="operator">=</span> e[<span class="number">0</span>];</span><br><span class="line">        graph[from].add(to);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> graph;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据一个顶点遍历图</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(List&lt;Integer&gt;[] graph, <span class="type">int</span> s)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (onPath) &#123;</span><br><span class="line">        <span class="comment">//成环</span></span><br><span class="line">        hasCycle = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (visited || hasCycle) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    visited[s] = <span class="literal">true</span>;</span><br><span class="line">    onPath[s] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i : graph[s]) &#123;</span><br><span class="line">        traverse(graph, i);</span><br><span class="line">    &#125;</span><br><span class="line">    onPath[s] = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="bfs"><a href="#bfs" class="headerlink" title="bfs"></a>bfs</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">bfs</span><span class="params">(Node start, Node target)</span> &#123;</span><br><span class="line">    Set&lt;Node&gt; visited = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    Queue&lt;Node&gt; q  = <span class="keyword">new</span> <span class="title class_">Queue</span>&lt;Node&gt;();</span><br><span class="line">    q.offer(start);</span><br><span class="line">    visited.add(start);</span><br><span class="line">    <span class="type">int</span> <span class="variable">step</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (q!=<span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">//开始扩散</span></span><br><span class="line">        <span class="type">Node</span> <span class="variable">cur</span> <span class="operator">=</span> q.poll();</span><br><span class="line">        <span class="keyword">if</span> (cur == target) &#123;</span><br><span class="line">            <span class="keyword">return</span> step;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (Node x : cur.adj) &#123;</span><br><span class="line">            <span class="comment">//相邻元素进行扩散，可以是左右子树，也可以是图邻接点</span></span><br><span class="line">            <span class="keyword">if</span> (x not in visited) &#123;</span><br><span class="line">            q.offer(x);</span><br><span class="line">            visited.add(x);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        step++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><p>aov-网（有向无权图），不成环可以进行拓扑排序。<br>（必须先a后b）<br>拓扑序列： 针对边&lt;i, j&gt;, 则序列i必须在j前面。</p>
-<p>可以用bfs, 也可以用dfs.</p>
-<p>dfs版本：<br>&#x2F;&#x2F;后序遍历反过来即为拓扑排序</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collections.reverse(postorder)</span><br></pre></td></tr></table></figure>
-<p>bfs版本<br>&#x2F;&#x2F; 先建表，根据表统计每个顶点的入度，入度为0的入队列。<br>&#x2F;&#x2F; 逐个处理队列，出队并记录，并根据邻接表将邻接点的入度-1（对应拓扑排序中删除顶点和弧。），若入度为0则加入队列。直至队列为空。<br>&#x2F;&#x2F; 出队元素数量是否与顶点数量相同，若相同则没有环，输出顺序即为拓扑排序。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] bfs(<span class="type">int</span> num, <span class="type">int</span>[][] v) &#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph = buildGraph(num, v);</span><br><span class="line">    <span class="comment">// 入度统计</span></span><br><span class="line">    <span class="type">int</span>[] indegree = <span class="keyword">new</span> <span class="title class_">int</span>[num];</span><br><span class="line">    <span class="type">int</span>[] ans = <span class="keyword">new</span> <span class="title class_">int</span>[num];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] e:v) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">from</span> <span class="operator">=</span> e[<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">to</span> <span class="operator">=</span> e[<span class="number">0</span>];</span><br><span class="line">        indegree[to]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//入度为0 的入队列</span></span><br><span class="line">    Queue&lt;Integer&gt; q = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span><span class="number">0</span>; i&lt; num; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (indegree[i] == <span class="number">0</span>) &#123;</span><br><span class="line">            q.offer(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//记录出队数量。</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.isEmpty()) &#123;</span><br><span class="line">        <span class="comment">//删除节点并修改邻接点入度</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">cur</span> <span class="operator">=</span> q.poll();</span><br><span class="line">        ans[count++] = cur;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j : graph[cur]) &#123;</span><br><span class="line">            indegree[j]--;</span><br><span class="line">            <span class="keyword">if</span> (indegree[j] ==<span class="number">0</span>) &#123;</span><br><span class="line">                q.offer(j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (count == num) &#123;</span><br><span class="line">       <span class="keyword">return</span> ans;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> List&lt;Integer&gt;[] buildGraph(<span class="type">int</span> num, <span class="type">int</span>[][] v) &#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph = <span class="keyword">new</span> <span class="title class_">LinkedList</span>[num];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;num; i++) &#123;</span><br><span class="line">        graph[i] = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] e : v) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">from</span> <span class="operator">=</span> e[<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">to</span> <span class="operator">=</span> e[<span class="number">0</span>];</span><br><span class="line">        graph[from].add(to);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> graph;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="二分图，即图的着色问题"><a href="#二分图，即图的着色问题" class="headerlink" title="二分图，即图的着色问题"></a>二分图，即图的着色问题</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">ok</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="type">boolean</span>[] color;</span><br><span class="line">    <span class="type">boolean</span>[] visited;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isBipartite</span><span class="params">(<span class="type">int</span>[][] graph)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> graph.length;</span><br><span class="line">        color = <span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">        visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[i]) &#123;</span><br><span class="line">                traverse(graph, i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ok;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(<span class="type">int</span>[][] graph, <span class="type">int</span> s)</span> &#123;</span><br><span class="line">        <span class="comment">//结果已确定非二分图,则直接退出</span></span><br><span class="line">        <span class="keyword">if</span> (!ok) <span class="keyword">return</span>;</span><br><span class="line">        visited[s] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> w : graph[s]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[w]) &#123;</span><br><span class="line">                <span class="comment">//未访问过，则需跟s颜色不同,并且继续涂下去</span></span><br><span class="line">                color[w] = !color[s];</span><br><span class="line">                traverse(graph, w);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//已访问过，比较与s颜色是否相同</span></span><br><span class="line">                <span class="keyword">if</span> (color[w] == color[s]) &#123;</span><br><span class="line">                    <span class="comment">//相同则不符合二分图</span></span><br><span class="line">                    ok = <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="uf-并查集"><a href="#uf-并查集" class="headerlink" title="uf 并查集"></a>uf 并查集</h2><p>连通多个点，可让不同根的节点连在一起。</p>
-<p>结构及优化：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UF</span> &#123;</span><br><span class="line">    <span class="comment">//连通</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">union</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> q)</span>;</span><br><span class="line">    <span class="comment">//是否连通</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">connected</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> q)</span>;</span><br><span class="line">    <span class="comment">//连通分量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">count</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">//下标所对应的父节点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] parent;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">UF</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.count = n;</span><br><span class="line">        parent = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt;parent)&#123;</span><br><span class="line">            parent(i) = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UF</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> count;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] parent;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果有权重，可以带size</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] size;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">UF</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.count = n;</span><br><span class="line">        parent = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        size = <span class="keyword">new</span> <span class="title class_">int</span>[];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i : parent) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            size[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">union</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> q)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootP</span> <span class="operator">=</span> find(p);</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootQ</span> <span class="operator">=</span> find(q);</span><br><span class="line">        <span class="keyword">if</span> (rootP == rootQ) <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//比较size再合并</span></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        if (size(rootP) &gt; size(rootQ)) &#123;</span></span><br><span class="line"><span class="comment">            parent(rootQ) = rootP;</span></span><br><span class="line"><span class="comment">            size(rootP) += size(rootQ);</span></span><br><span class="line"><span class="comment">        &#125; else &#123;</span></span><br><span class="line"><span class="comment">            parent(rootP) = rootQ;</span></span><br><span class="line"><span class="comment">            size(rootQ) += size(rootP);</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        parent(rootP) = rootQ;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">connect</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> q)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> find(p) == find(q);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">find</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (parent(x) != x) &#123;</span><br><span class="line">            parent(x) = find(parent(x));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parent(x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">count</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span>  count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UF</span> &#123;</span><br><span class="line">    <span class="comment">// 连通分量个数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> count;</span><br><span class="line">    <span class="comment">// 存储每个节点的父节点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] parent;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// n 为图中节点的个数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">UF</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.count = n;</span><br><span class="line">        parent = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将节点 p 和节点 q 连通</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">union</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> q)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootP</span> <span class="operator">=</span> find(p);</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootQ</span> <span class="operator">=</span> find(q);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (rootP == rootQ)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        parent[rootQ] = rootP;</span><br><span class="line">        <span class="comment">// 两个连通分量合并成一个连通分量</span></span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断节点 p 和节点 q 是否连通</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">connected</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> q)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootP</span> <span class="operator">=</span> find(p);</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootQ</span> <span class="operator">=</span> find(q);</span><br><span class="line">        <span class="type">return</span> <span class="variable">rootP</span> <span class="operator">=</span>= rootQ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//路径压缩</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">find</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = find(parent[x]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回图中的连通分量个数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">count</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h2><p>无向图里找不成环且连接所有顶点的树，且权重和最小。</p>
-<pre><code>1. 以图判树
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断输入的若干条边是否能构造出一棵树结构</span></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">validTree</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] edges)</span> &#123;</span><br><span class="line">    <span class="comment">// 初始化 0...n-1 共 n 个节点</span></span><br><span class="line">    <span class="type">UF</span> <span class="variable">uf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UF</span>(n);</span><br><span class="line">    <span class="comment">// 遍历所有边，将组成边的两个节点进行连接</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] edge : edges) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">u</span> <span class="operator">=</span> edge[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">v</span> <span class="operator">=</span> edge[<span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 若两个节点已经在同一连通分量中，会产生环</span></span><br><span class="line">        <span class="keyword">if</span> (uf.connected(u, v)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 这条边不会产生环，可以是树的一部分</span></span><br><span class="line">        uf.union(u, v);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 要保证最后只形成了一棵树，即只有一个连通分量</span></span><br><span class="line">    <span class="keyword">return</span> uf.count() == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UF</span> &#123;</span><br><span class="line">    <span class="comment">// 见上文代码实现</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//默写：</span></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">vaildTree</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] edges)</span> &#123;</span><br><span class="line">    <span class="type">UF</span> <span class="variable">uf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UF</span>(n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] edge : edges) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> edge[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">q</span> <span class="operator">=</span> edge[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (uf.connected(p, q)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        uf.union(p, q);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> uf.count == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UF</span>()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<pre><code>2. kruskal算法
-// 在以图判树的基础上，加上权重和最小（直接用权重排序，贪心）的限制条件。
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Kruskal</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">minimumCost</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] connections)</span> &#123;</span><br><span class="line">        <span class="comment">//从1到n的点，所以要n+1, 注意0未使用。</span></span><br><span class="line">        <span class="type">UF</span> <span class="variable">uf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UF</span>(n+<span class="number">1</span>);</span><br><span class="line">        Arrays.sort(connections, (a,b) -&gt; (a[<span class="number">2</span>]-b[<span class="number">2</span>]));</span><br><span class="line">        <span class="type">int</span> <span class="variable">mst</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] e: connections) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> e[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">q</span> <span class="operator">=</span> e[<span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">weight</span> <span class="operator">=</span> e[<span class="number">2</span>];</span><br><span class="line">            <span class="keyword">if</span> (uf.connected(p, q)) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            uf.union(p, q);</span><br><span class="line">            mst += weight;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> uf.count == <span class="number">2</span> ? mst : -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>   曼哈顿距离</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> points.length;</span><br><span class="line">    <span class="comment">// 生成所有边及权重</span></span><br><span class="line">    List&lt;<span class="type">int</span>[]&gt; edges = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i + <span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">xi</span> <span class="operator">=</span> points[i][<span class="number">0</span>], yi = points[i][<span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">xj</span> <span class="operator">=</span> points[j][<span class="number">0</span>], yj = points[j][<span class="number">1</span>];</span><br><span class="line">            <span class="comment">// 用坐标点在 points 中的索引表示坐标点</span></span><br><span class="line">            edges.add(<span class="keyword">new</span> <span class="title class_">int</span>[] &#123;</span><br><span class="line">                i, j, Math.abs(xi - xj) + Math.abs(yi - yj)</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Collections.sort()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="dijkstra"><a href="#dijkstra" class="headerlink" title="dijkstra"></a>dijkstra</h2><p>bfs求单源最短路径<br>算法签名：<br>int[] dijkstra(int start, List<Integer>[] graph);</p>
-<p>标准的 Dijkstra 算法会把从起点 start 到所有其他节点的最短路径都算出来。<br>比方说，输入起点 start &#x3D; 3，函数返回一个 int[] 数组，假设赋值给 distTo 变量，那么从起点 3 到节点 6 的最短路径权重的值就是 distTo[6]。</p>
 
       
     </div>
