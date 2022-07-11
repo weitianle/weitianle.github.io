@@ -118,12 +118,12 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -152,6 +152,285 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/11/juc-charpter3-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weitianle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn And Teach">
+      <meta itemprop="description" content="Stay hungry">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Learn And Teach">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/11/juc-charpter3-02/" class="post-title-link" itemprop="url">juc-charpter3-02</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-11 11:11:16 / 修改时间：14:23:04" itemprop="dateCreated datePublished" datetime="2022-07-11T11:11:16+08:00">2022-07-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="juc-charpter3-02"><a href="#juc-charpter3-02" class="headerlink" title="juc-charpter3-02"></a>juc-charpter3-02</h1><h4 id="final-域的内存语义"><a href="#final-域的内存语义" class="headerlink" title="final 域的内存语义"></a>final 域的内存语义</h4><p>重排序规则：</p>
+<ul>
+<li>写：写final和引用赋值不能重排序。<ul>
+<li>实现：禁止final重排序到构造函数之外。在写后插入storestore屏障，再接构造函数的return。</li>
+</ul>
+</li>
+<li>读：初次读包含final的引用和读final，不能重排序。<ul>
+<li>确保先读引用，再读final。final读前插入loadload操作。</li>
+</ul>
+</li>
+</ul>
+<h4 id="happens-before"><a href="#happens-before" class="headerlink" title="happens-before"></a>happens-before</h4><p>定义：A 的结果对B可见，程序中的执行顺序A先于B（实际不一定），则说Ahappens-before B。</p>
+<ul>
+<li><p>程序顺序</p>
+</li>
+<li><p>监视器锁</p>
+</li>
+<li><p>volatile</p>
+</li>
+<li><p>传递性</p>
+</li>
+<li><p>start</p>
+</li>
+<li><p>join</p>
+</li>
+</ul>
+<h4 id="双重检查锁定"><a href="#双重检查锁定" class="headerlink" title="双重检查锁定"></a>双重检查锁定</h4><p>为了推迟一些高开销的对象初始化操作，并且只有在使用时才进行初始化。此时采用延迟初始化。</p>
+<p>错误示范：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UnsafeLazyInitialization</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> Instance instance;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Instance <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="literal">null</span> ) instance = <span class="keyword">new</span> <span class="title class_">Instance</span>();</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>A线程在new 这一步时，B也getInstance,此时虽然不为null, 但是还没初始化完成，B获得了一个未完成初始化的实例。</p>
+<p>why? 因为对象创建分为以下三步：</p>
+<ul>
+<li>分配内存空间</li>
+<li>初始化</li>
+<li>将引用变量指向对象地址</li>
+</ul>
+<p>其中 初始化和 引用指向地址可能会发生重排序，当先赋值引用时，此时拿到的对象实例并没有完成初始化。</p>
+<p>那要怎么解决呢？</p>
+<ul>
+<li>防止上面的重排序</li>
+<li>重排序可以，但是要做完，不让别的线程看到中间过程。</li>
+</ul>
+<p>为防止重排序，可用volatile和sychronized结合。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SafeDoubeCheckedLocking</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Instance instance;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Instance <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">      sychronized(SafeDoubeCheckedLocking.class) &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">          instance = <span class="keyword">new</span> <span class="title class_">Instance</span>();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>适用于对<strong>实例字段</strong>和<strong>静态字段</strong>的线程安全延迟初始化，优选<strong>实例字段</strong>。</p>
+<p>如果允许重排序，则必须保证重排序的两个操作都执行完，再让其他线程看到。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InstanceFactory</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">InstanceHolder</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">Instance</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Instance</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> staic Instance <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> InstanceHolder.instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此方法利用类的初始化会获取锁的机制，完成对类的初始化。此方法简短，适用于对<strong>静态字段</strong>的线程安全延迟初始化。</p>
+<p>该过程可以理解为先拿到锁的线程A，会修改状态标记，然后释放锁再初始化，初始化完成后再拿锁修改状态标记为已完成初始化，再释放锁。其他线程拿到锁也要判断状态标记，如果已经在初始化了或初始化完成了，释放掉锁。</p>
+<p>线程A初始化过程中都要两次加锁解锁，初始化完成后其他线程再来就只要拿一次锁判定状态了。</p>
+<p>（此处疑问？类的加载、初始化，不是在最开始就执行了吗？为什么要等到多线程来调用才会进行初始化？）</p>
+<p>（答案：除了被jvm指定的启动类，其他都是用的时候再开始初始化。包括：</p>
+<p>1、创建类的实例,也就是new一个对象<br>2、访问某个类或者接口的静态变量,或者对该静态变量赋值<br>3、调用类的静态方法<br>4、反射(Class.forName(MyClass.class))<br>5、初始化一个类的子类(初始化子类时,会优先初始化父类)<br>6、JVM启动时表明的启动类,即<strong>文件名</strong>和<strong>类名</strong>相同的那个类）</p>
+<h4 id="juc-charpter3-JMM总结"><a href="#juc-charpter3-JMM总结" class="headerlink" title="juc-charpter3-JMM总结"></a>juc-charpter3-JMM总结</h4><p>JMM定义了Java 虚拟机(JVM)在计算机内存(RAM)中的工作方式。</p>
+<p>JMM内存模型和处理器内存模型都会参考顺序一致性内存模型，但都会放松限制。</p>
+<p>JMM基于不同处理器内存模型插入不同的内存屏障指令，所以不同处理器平台展示给程序员的会是一致的内存模型。</p>
+<p>JMM内存模型保证以下可见性：</p>
+<ul>
+<li>单线程程序</li>
+<li>正确同步的多线程程序，保证结果跟顺序一致性内存模型的执行结果一致。</li>
+<li>未正确同步的多线程程序，JMM会提供最小安全性保障。线程会读到之前写过的值，或者默认值0、null、false。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/08/juc-charpter3-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weitianle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn And Teach">
+      <meta itemprop="description" content="Stay hungry">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Learn And Teach">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/08/juc-charpter3-01/" class="post-title-link" itemprop="url">juc-charpter-three-01</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-08 16:27:51" itemprop="dateCreated datePublished" datetime="2022-07-08T16:27:51+08:00">2022-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-10 21:15:20" itemprop="dateModified" datetime="2022-07-10T21:15:20+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Java-内存模型"><a href="#Java-内存模型" class="headerlink" title="Java 内存模型"></a>Java 内存模型</h1><h3 id="1-1-并发编程模型的两个关键问题"><a href="#1-1-并发编程模型的两个关键问题" class="headerlink" title="1.1 并发编程模型的两个关键问题"></a>1.1 并发编程模型的两个关键问题</h3><ul>
+<li>线程间如何通信？</li>
+<li>线程之间如何同步？</li>
+</ul>
+<p>通信：共享内存（主内存中写-读内存的公共状态）或者消息传递（显式）</p>
+<p>同步：线程之间操作发生相对顺序的机制。共享内存方式下是显式指定顺序，消息传递是隐式。</p>
+<p>Java采用共享内存模型，隐式通信。</p>
+<h3 id="1-2-Java内存模型的抽象结构"><a href="#1-2-Java内存模型的抽象结构" class="headerlink" title="1.2 Java内存模型的抽象结构"></a>1.2 Java内存模型的抽象结构</h3><h4 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h4><p>堆内存：实例域、静态域和数组元素，线程之间共享。</p>
+<p>局部变量、方法定义参数、异常处理器参数不会在线程之间共享，所以没有内存可见性问题。</p>
+<h5 id="（JMM）-java-内存模型控制java线程之间的通信，线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线程以读-x2F-写变量的副本，本地内存并不真实存在，抽象概念。"><a href="#（JMM）-java-内存模型控制java线程之间的通信，线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线程以读-x2F-写变量的副本，本地内存并不真实存在，抽象概念。" class="headerlink" title="（JMM） java 内存模型控制java线程之间的通信，线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线程以读&#x2F;写变量的副本，本地内存并不真实存在，抽象概念。"></a>（JMM） java 内存模型控制java线程之间的通信，线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线程以读&#x2F;写变量的副本，本地内存并不真实存在，抽象概念。</h5><h4 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h4><p> 从A本地内存到主内存，再到B本地内存的过程，可以称为通信。</p>
+<h4 id="重排序：提升效率"><a href="#重排序：提升效率" class="headerlink" title="重排序：提升效率"></a>重排序：提升效率</h4><p>​	1）编译器优化的重排序，在不改变单线程的程序语义的前提下。</p>
+<p>​	2）（处理器级别）指令级并行的重排序，不存在数据依赖性。</p>
+<p>​	3）（处理器级别）内存系统的重排序，利用缓存和读&#x2F;写缓冲区</p>
+<p>通过编译器重排规则和处理器层的内存屏障指令来禁止相应类型的重排序。</p>
+<p>处理器中会有写缓冲区（读内存，写缓冲），处理器将要写进内存的数据先放入缓冲区，避免处理器继续等待和内存通信。但每个写缓冲区，仅对自己可见。写缓冲区中的数据也会被处理，批处理刷新写缓冲区，对同一内存地址的写要合并，此时会发生重排序。</p>
+<p>（此处便是一个多机缓存的场景）</p>
+<p>因为缓冲区的存在，所以处理器的读&#x2F;写顺序，和内存中的读&#x2F;写顺序不一定一致。</p>
+<h4 id="内存屏障指令"><a href="#内存屏障指令" class="headerlink" title="内存屏障指令"></a>内存屏障指令</h4><p>共4类Barriers, 由store、load两个组成，分别是loadload&#x2F; loadstore &#x2F; storeload&#x2F; storestore.</p>
+<p>load为读，数据装载；store为写，写数据可见即刷新到缓存。</p>
+<h5 id="确保（）的顺序在（）之前。"><a href="#确保（）的顺序在（）之前。" class="headerlink" title="确保（）的顺序在（）之前。"></a>确保（）的顺序在（）之前。</h5><h4 id="happens-before"><a href="#happens-before" class="headerlink" title="happens-before"></a>happens-before</h4><p>一个操作执行的结果需要对另一个操作可见。</p>
+<ul>
+<li>程序顺序规则 （按书写顺序）</li>
+<li>监视器锁规则（先解锁再加锁）</li>
+<li>volatile变量   （先写再读）</li>
+<li>传递性 （a-b,b-c –&gt; a-c）</li>
+</ul>
+<p>但是不代表执行顺序。只是结果可见性。</p>
+<h4 id="重排序"><a href="#重排序" class="headerlink" title="重排序"></a>重排序</h4><h5 id="单线程"><a href="#单线程" class="headerlink" title="单线程"></a>单线程</h5><ul>
+<li><p>有数据依赖关系的操作不会被重排序。（指单线程，多线程机器不考虑）</p>
+</li>
+<li><p>as-if-serial, 被重排序的单线程执行也不会改变原来的结果。</p>
+</li>
+</ul>
+<p>控制依赖：会猜测为真计算并存入重排序缓冲，若为真则写入。</p>
+<p>多线程控制依赖重排序会影响结果，单线程不会。</p>
+<h4 id="顺序一致性"><a href="#顺序一致性" class="headerlink" title="顺序一致性"></a>顺序一致性</h4><p>是理论参考模型，如果程序正确同步，程序的执行将具有顺序一致性，即执行结果和顺序一致性内存模型中的执行结果相同。</p>
+<p>内存模型：</p>
+<ul>
+<li>一个线程中的所有操作必须按照程序的顺序来执行</li>
+<li>不管程序是否同步，所有线程都只能看到一个单一的操作执行顺序，每个操作原子执行并立刻对所有线程可见。</li>
+</ul>
+<h5 id="JMM不保证顺序一致性。临界区内的代码可以重排序。"><a href="#JMM不保证顺序一致性。临界区内的代码可以重排序。" class="headerlink" title="JMM不保证顺序一致性。临界区内的代码可以重排序。"></a>JMM不保证顺序一致性。临界区内的代码可以重排序。</h5><p>最小安全性：要么已经被写过，要么初始化为（0,NULL,False）。分配对象时，先内存清零，然后分配。分配时就会完成默认初始化。</p>
+<h4 id="volatile的内存语义"><a href="#volatile的内存语义" class="headerlink" title="volatile的内存语义"></a>volatile的内存语义</h4><p>可见性：读前都能看到最后的写。</p>
+<p>原子性：对单个volatile变量读&#x2F;写具有原子性。但复合操作没有，如i++。</p>
+<h5 id="内存语义：写线程对读线程发了一条消息。"><a href="#内存语义：写线程对读线程发了一条消息。" class="headerlink" title="内存语义：写线程对读线程发了一条消息。"></a>内存语义：写线程对读线程发了一条消息。</h5><p>过程：写线程先把本地内存中的共享变量值写到主内存，读线程先把本地内存中的共享变量值置为无效，再从主内存读。</p>
+<p>JMM实现：</p>
+<p>​	基于保守策略插入内存屏障实现，禁止重排序。</p>
+<p>​	策略：在读前或写后都加一个storeload屏障</p>
+<h5 id="volatile用法"><a href="#volatile用法" class="headerlink" title="volatile用法"></a>volatile用法</h5><p>条件：1. 对变量的写不依赖当前值 2. 其他变量不变式不含该变量</p>
+<p>常用：</p>
+<ul>
+<li>状态标记</li>
+<li>一次性安全发布(线程安全或有效不可变的对象)</li>
+<li>独立观察的状态标记（传感器）</li>
+<li>volatile bean， 属性是volatile的能够保证类对象线程安全</li>
+<li>开销较少的读写锁策略：读多写。少可用。sychronized(写)和volatile(读)</li>
+</ul>
+<h4 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h4><p>可以让临界区的代码互斥执行，也能让线程间传递消息。</p>
+<h5 id="内存语义：a解锁-b加锁的过程实际上可以看成a对b发了消息。"><a href="#内存语义：a解锁-b加锁的过程实际上可以看成a对b发了消息。" class="headerlink" title="内存语义：a解锁 b加锁的过程实际上可以看成a对b发了消息。"></a>内存语义：a解锁 b加锁的过程实际上可以看成a对b发了消息。</h5><h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><p>​	 借助于AQS，AQS使用一个整型的volatile state变量记录锁状态。</p>
+<p>reentrantlock分为公平锁和非公平锁。公平锁会直接读state然后写state，非公平要用cas竞争锁。</p>
+<p>CAS同时具有volatile读 和 写 的内存语义，因为CAS会禁止当前指令和前后的读写指令重排序，并且会将写缓冲的所有数据全部刷到内存里。</p>
+<p>通用化的concurrent包：</p>
+<ul>
+<li><p>声明变量为volatile</p>
+</li>
+<li><p>使用CAS的原子条件更新来实现线程之间的同步</p>
+</li>
+<li><p>配合volatile的读&#x2F;写和CAS具有的volatile读和写的内存语义</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -967,7 +1246,7 @@
 
 <p>记得owner改成自己的github昵称。使用https需要github账号密码。</p>
 <blockquote>
-<p>这里可以换成ssh。使用ssh等于将本机添加到这个github账号的信任名单中，之后再对仓库进行操作就不用输入账号密码了。先搜索如何github ssh。完成后再来修改_config.yml, type不变， repo需修改为ssh的repo地址。如：repo: <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;">&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#46;&#99;&#x6f;&#x6d;</a>:owner&#x2F;owner.github.io.git。</p>
+<p>这里可以换成ssh。使用ssh等于将本机添加到这个github账号的信任名单中，之后再对仓库进行操作就不用输入账号密码了。先搜索如何github ssh。完成后再来修改_config.yml, type不变， repo需修改为ssh的repo地址。如：repo: <a href="mailto:&#103;&#x69;&#x74;&#x40;&#103;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#99;&#111;&#109;">&#103;&#x69;&#x74;&#x40;&#103;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#99;&#111;&#109;</a>:owner&#x2F;owner.github.io.git。</p>
 </blockquote>
 </li>
 <li><h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></li>
@@ -1072,248 +1351,6 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/10/#%20%E6%95%B0%E6%8D%AE%E5%BA%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Weitianle">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Learn And Teach">
-      <meta itemprop="description" content="Stay hungry">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Learn And Teach">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/10/#%20%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-10 16:33:39" itemprop="dateCreated datePublished" datetime="2022-06-10T16:33:39+08:00">2022-06-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-18 08:41:06" itemprop="dateModified" datetime="2022-06-18T08:41:06+08:00">2022-06-18</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><ol>
-<li><p>三范式<br> 数据库第一二三范式到底在说什么？ - 刘慰的文章 - 知乎<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20028672">https://zhuanlan.zhihu.com/p/20028672</a></p>
-<ul>
-<li><p>1NF<br>  一个字段表示一个值。不能再分解。比如进货单价和进货数量 必须分开两个字段。</p>
-</li>
-<li><p>2NF<br>  部分函数依赖,2NF在1NF的基础之上，消除了非主属性对于码的部分函数依赖。即假设选择码(A, B）- &gt; C ，则不能直接有A（或B）确认c。</p>
-</li>
-<li><p>3NF<br>  全部函数依赖。3NF在2NF的基础之上，消除了非主属性对于码的传递函数依赖。在码（A)-&gt;B, B-&gt;C, 则出现了传递函数依赖，此时应该分表为 ab, bc；</p>
-</li>
-<li><p>BC范式<br>  主码的传递函数依赖。在3NF的基础上，消除了主属性对码的部分与传递函数依赖。举例：在码（A，B，C）-&gt;D 中，A-&gt;B，此时应该分表为AB，AC-&gt;D;</p>
-<p>  1人不分解、2人抱团、3人传递、BC抱团者独立。</p>
-</li>
-</ul>
-</li>
-<li><p>事务、问题、隔离级别<br> 逻辑上的一组操作，要么都执行，要么都不执行。<br> 事务的ACID特性。</p>
-<ul>
-<li>atomicity   原子性</li>
-<li>consistency 一致性 业务相关、程序员规定。比如A给B转钱，一致性的含义就是AB总钱不变。</li>
-<li>isolation   隔离性 各个事务之间是隔离开来、互不影响的。</li>
-<li>durability  持久性 对数据的改变是持久的，会落到存储介质上。<br> 原子性，隔离性和持久性是数据库的属性，而一致性（在 ACID 意义上）是应用程序的属性。</li>
-</ul>
-<p> 事务拥有隔离性，但事务并发仍会带来问题。</p>
-<p> 脏 读-读到脏数据，脏数据指别人刚改但没提交的。<br> 丢失修改- B改了A改的数据<br> 不可重复读- 对一条记录，对第一次和第二次之间有别的事务改动，<br> 幻读 - 对同一张表，读到了别人新增或者删除的改动</p>
-<p> 针对这些问题（脏读、不可重复读、幻读），定义以下隔离级别</p>
-<ul>
-<li>读取未提交 可以读没提交的数据，问题最大</li>
-<li>读取已提交 没提交的不能读，避免了脏读。但是已提交的可能会影响自身，导致不可重复读和幻读。</li>
-<li>可重复读  保证多次读同一条是一样的，但是不能避免幻读（条目增加&#x2F;减少）。</li>
-<li>可串行化<br>  前三者由MVCC实现，可串行化由锁实现。mysql默认隔离级别是可重复读。<br> 怎么解决幻读？<br>  可串行化&#x2F;表锁&#x2F;next-key lock(行锁+间隙锁)<br> 什么是MVCC ?</li>
-</ul>
-</li>
-<li><p>数据库中的锁<br> 行锁-根据索引进行锁，没命中索引的话会锁表。<br> 意向锁是一种快速判断表锁与可能存在的行锁冲突的机制<br> IX，IS是表级锁，不会和行级的X，S锁发生冲突。只会和表级的X，S发生冲突。<br> 参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/52312376">https://zhuanlan.zhihu.com/p/52312376</a></p>
-</li>
-<li><p>索引<br> 底层结构：</p>
-<ul>
-<li>hash索引<br>  利用哈希函数进行精准定位，所以快。也因此不能范围查找。还会有hash冲突。</li>
-<li>B树&#x2F;B+<br>  b树的所有节点都会存储key和data（单个查询快），B+树只有叶子节点会存储data,其他节点存储key。<br>  b+树叶子节点相邻间是有指针的，方便遍历。</li>
-</ul>
-<p> 待确认：为什么Mongodb索引用B树，而Mysql用B+树? - 孤独烟的文章 - 知乎<br> <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/107228878">https://zhuanlan.zhihu.com/p/107228878</a></p>
-<p> 类型：<br> 聚集索引（数据和索引放在叶子节点、更新代价大主键一般不可变）、<br> 非聚集索引（索引和数据是分开存放的，比如二级索引叶子节点存一个主键，但没有数据，需要回表查询数据。所以更新代价较小）、</p>
-<p> 覆盖索引：要查的索引都有：一个索引包含所有需要查询的字段的值<br> 最左匹配原则：联合索引（多个字段）使用时，按最左的匹配（遇到范围就停）</p>
-</li>
-<li><p>日志</p>
-</li>
-<li></li>
-<li></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/08/#%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Weitianle">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Learn And Teach">
-      <meta itemprop="description" content="Stay hungry">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Learn And Teach">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/08/#%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-08 10:39:39" itemprop="dateCreated datePublished" datetime="2022-06-08T10:39:39+08:00">2022-06-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-20 14:56:30" itemprop="dateModified" datetime="2022-06-20T14:56:30+08:00">2022-06-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><ol>
-<li>osi七层网络模型</li>
-</ol>
-<ul>
-<li>应用层     常见程序，HTTP&#x2F;FTP&#x2F;SMTP</li>
-<li>表示层     数据处理  HTML DOC等, 信息转换</li>
-<li>会话层     管理会话，包括建立、维护、重连 SSL、TLS,</li>
-<li>传输层     数据传输  tcp&#x2F;udp&#x2F;SSL   </li>
-<li>网络层     路由寻址  IP&#x2F;ARP&#x2F;ICMP  </li>
-<li>数据链路层 管理相邻节点直接的数据通信，MAC, 将bit流转为逻辑传输。</li>
-<li>物理层     传输介质传递bit流  网线</li>
-</ul>
-<ol start="2">
-<li>TCP、IP</li>
-</ol>
-<p>应用层  传输层  网络层  网络接口层<br>报文、用户数据报、IP数据报、帧+bit</p>
-<ol start="3">
-<li>http 与 HTTPS 区别</li>
-</ol>
-<p>http无状态。<br>https额外使用SSL&#x2F;TLS协议。<br>SSL&#x2F;TLS 先对对称加密密钥k进行非对称加密，再对内容用对称密钥进行对称加密。<br>公钥是由服务器通过网络发放，可能被仿造，如何保证公钥可信？数字签名。</p>
-<ul>
-<li>先由Certificate Authority 即CA发放证书，通过散列+加密。<ol>
-<li>CA先用散列对服务器公钥生成摘要，然后用CA私钥对摘要加密。</li>
-<li>客户端收到服务器发过来的证书，先从CA拿公钥，解密摘要得到待确认的服务器公钥。</li>
-<li>客户端再用散列对服务器公钥生成摘要，比对摘要是否一致。若一致则身份得到验证。</li>
-</ol>
-</li>
-<li>如何确保CA的可信？ 根证书预先装在浏览器、系统中，拥有信赖的CA机构名单和公钥，不需要通过网络传输。</li>
-</ul>
-<blockquote>
-<blockquote>
-<p>参考链接：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV18N411X7ty/">https://www.bilibili.com/video/BV18N411X7ty/</a></p>
-</blockquote>
-</blockquote>
-<ol start="4">
-<li><p>http1.0 与 http 1.1  <a target="_blank" rel="noopener" href="https://javaguide.cn/cs-basics/network/http1.0&amp;http1.1.html#%E5%8E%8B%E7%BC%A9">https://javaguide.cn/cs-basics/network/http1.0&amp;http1.1.html#压缩</a></p>
-</li>
-<li><p>tcp三次握手和四次挥手过程<br> 三次握手才可以阻止重复历史连接的初始化（主要原因）<br> 三次握手才可以同步双方的初始序列号<br> 三次握手才可以避免资源浪费</p>
-<p> 保证客户端发送的最后一个ack报文段能够到达服务器。因为这最后一个ack确认包可能会丢失，然后服务器就会超时重传第三次挥手的fin信息报，然后客户端再重传一次第四次挥手的ack报文。如果没有这2msl，客户端发送完最后一个ack数据报后直接关闭连接，那么就接收不到服务器超时重传的fin信息报(此处应该是客户端收到一个非法的报文段，而返回一个RST的数据报，表明拒绝此次通信，然后双方就产生异常，而不是收不到。)，那么服务器就不能按正常步骤进入close状态。那么就会耗费服务器的资源。当网络中存在大量的timewait状态，那么服务器的压力可想而知。</p>
-<p> 原因2：在第四次挥手后，经过2msl的时间足以让本次连接产生的所有报文段都从网络中消失，这样下一次新的连接中就肯定不会出现旧连接的报文段了。也就是防止我们上一篇文章 为什么tcp是三次握手而不是两次握手？  中说的：已经失效的连接请求报文段出现在本次连接中。如果没有的话就可能这样：这次连接一挥手完马上就结束了，没有timewait。这次连接中有个迷失在网络中的syn包，然后下次连接又马上开始，下个连接发送syn包，迷失的syn包忽然又到达了对面，所以对面可能同时收到或者不同时间收到请求连接的syn包，然后就出现问题了。</p>
-</li>
-<li><p>timewait</p>
-</li>
-</ol>
-<p>7</p>
 
       
     </div>
