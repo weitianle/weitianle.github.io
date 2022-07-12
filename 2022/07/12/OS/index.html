@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="操作系统操作系统基本概念 操作系统管理计算机硬件和软件资源的程序，屏蔽了硬件层的复杂性。可理解为人机之间的接口。负责文件管理、进程管理、设备管理、内存管理。  进程在系统上的运行分为用户态和系统态（内核态）。用户态权限低，系统态要求更高权限。从用户态申请转到内核态的场景，包括系统调用、发生异常、外部设备中断。用户态转内核态时，要保存用户态的寄存器信息，返回时恢复，开销较大。  进程和线程的区别：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OS">
+<meta property="og:url" content="http://example.com/2022/07/12/OS/index.html">
+<meta property="og:site_name" content="Learn And Teach">
+<meta property="og:description" content="操作系统操作系统基本概念 操作系统管理计算机硬件和软件资源的程序，屏蔽了硬件层的复杂性。可理解为人机之间的接口。负责文件管理、进程管理、设备管理、内存管理。  进程在系统上的运行分为用户态和系统态（内核态）。用户态权限低，系统态要求更高权限。从用户态申请转到内核态的场景，包括系统调用、发生异常、外部设备中断。用户态转内核态时，要保存用户态的寄存器信息，返回时恢复，开销较大。  进程和线程的区别：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-12T02:05:03.000Z">
+<meta property="article:modified_time" content="2022-07-12T02:05:13.542Z">
+<meta property="article:author" content="Weitianle">
+<meta property="article:tag" content="os">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/07/12/OS/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/12/OS/","path":"2022/07/12/OS/","title":"OS"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>OS | Learn And Teach</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Learn And Teach</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">操作系统基本概念</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Weitianle</p>
+  <div class="site-description" itemprop="description">Stay hungry</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/12/OS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weitianle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn And Teach">
+      <meta itemprop="description" content="Stay hungry">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="OS | Learn And Teach">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OS
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-12 10:05:03 / 修改时间：10:05:13" itemprop="dateCreated datePublished" datetime="2022-07-12T10:05:03+08:00">2022-07-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="操作系统基本概念"><a href="#操作系统基本概念" class="headerlink" title="操作系统基本概念"></a>操作系统基本概念</h2><ol>
+<li><p>操作系统管理计算机硬件和软件资源的程序，屏蔽了硬件层的复杂性。可理解为人机之间的接口。负责文件管理、进程管理、设备管理、内存管理。</p>
+</li>
+<li><p>进程在系统上的运行分为用户态和系统态（内核态）。用户态权限低，系统态要求更高权限。从用户态申请转到内核态的场景，包括系统调用、发生异常、外部设备中断。用户态转内核态时，要保存用户态的寄存器信息，返回时恢复，开销较大。</p>
+</li>
+<li><p>进程和线程的区别：<br> 进程是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位。线程是更小的运行单位，是CPU调度和分派的基本单位。一个进程可以产生多个线程，线程共享进程内存空间，线程也有自己的空间（程序计数器、虚拟机栈、本地方法栈）</p>
+</li>
+<li><p>进程状态包括 创建（new）-&gt; 就绪(ready) -&gt; 运行(running) -&gt; 阻塞(waiting) -&gt;结束（terminated）（正常或中断）</p>
+</li>
+<li><p>进程间通信<br>概念：进程间相互独立，数据无法直接交换，所以要找中间人内核。在内核里面开辟缓冲区，进程间通过缓冲区进行通信。<br>方式：</p>
+</li>
+</ol>
+<ul>
+<li><p>管道<br>  本质是内核缓存区，有大小限制<br>  分为匿名管道和有名管道。<br>  管道也是文件。<br>  匿名管道pipe，读写时确认对方存在且约定好数据格式，半双工只支持一个方向数据流，用于父子或兄弟，循环队列先进先出单不能定位。只存在于内存中，且不支持lseek()文件定位。<br>  有名管道fifo, 打开时确认对方存在，可访问则可通信，不支持文件定位，名字存于文件系统中，内容在内存。先进先出。</p>
+</li>
+<li><p>信号<br> 通知某个事件已经发生。解决异步问题。</p>
+</li>
+<li><p>消息队列</p>
+</li>
+<li><p>信号量<br>  计数，解决同步问题。</p>
+</li>
+</ul>
+<ol start="6">
+<li><p>银行家算法<br> 为了解决死锁，预先分配。</p>
+</li>
+<li><p>线程间同步方式</p>
+</li>
+</ol>
+<p>参考：互斥锁，同步锁，临界区，互斥量，信号量，自旋锁之间联系是什么？ - 胖君的回答 - 知乎<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/39850927/answer/242109380">https://www.zhihu.com/question/39850927/answer/242109380</a></p>
+<ul>
+<li><p>互斥量<br>  同一资源只准一个线程进入临界区。</p>
+</li>
+<li><p>信号量<br>  控制访问同一资源的最大线程数量</p>
+</li>
+<li><p>事件</p>
+</li>
+</ul>
+<ol start="8">
+<li>进程调度算法</li>
+</ol>
+<ul>
+<li>先来先服务</li>
+<li>短进程优先</li>
+<li>优先级</li>
+<li>时间片轮转</li>
+<li>多级反馈</li>
+</ul>
+<ol start="9">
+<li>死锁</li>
+</ol>
+<ul>
+<li>死锁发生在AB多个进程竞争同一资源，且一个进程A已经占用资源不肯也不能被强行释放，且A还要B占用的资源，B也不肯放。</li>
+<li>发生条件： 互斥、占有并等待、非抢占式、循环等待</li>
+<li>解决：预防、检测、避免、解除。预防则从设计上避免多抢一、循环，避免是根据系统使用资源的现况预测（试试看，试了行才给，不然不给），检测通过检测机构，解除</li>
+</ul>
+<ol start="10">
+<li>内存管理</li>
+</ol>
+<ul>
+<li>连续（块）、非连续（页、段、段页式）</li>
+</ul>
+<p>详细：操作系统之内存管理，啃完的人都超神了！！！ - 小龙飞的文章 - 知乎<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/359165294">https://zhuanlan.zhihu.com/p/359165294</a></p>
+<ul>
+<li>虚拟内存</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903507594575886">https://juejin.cn/post/6844903507594575886</a></p>
+<ol start="11">
+<li>linux</li>
+</ol>
+<ul>
+<li><p>常用命令</p>
+<ul>
+<li>cat\ less\ more \ ls \ tar\ 没有线程</li>
+</ul>
+</li>
+<li><p>linux没有线程，是轻进程</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/os/" rel="tag"># os</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/12/%E8%AE%A1%E7%BD%91/" rel="prev" title="计网">
+                  <i class="fa fa-chevron-left"></i> 计网
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/12/Algorithm-Graph/" rel="next" title="Algorithm-Graph">
+                  Algorithm-Graph <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weitianle</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

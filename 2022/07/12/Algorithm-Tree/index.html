@@ -22,25 +22,26 @@
 
     <meta name="description" content="二叉树树的结构12345678910111213141516171819202122public TreeNode &amp;#123;    TreeNode left;    TreeNode right;    int val;    TreeNode()&amp;#123;&amp;#125;;    TreeNode(int val) &amp;#123;        this.val &#x3D; val;    &amp;#125">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Learn And Teach">
-<meta property="og:url" content="http://example.com/2022/05/31/%E4%BA%8C%E5%8F%89%E6%A0%91/index.html">
+<meta property="og:title" content="Algorithm-Tree">
+<meta property="og:url" content="http://example.com/2022/07/12/Algorithm-Tree/index.html">
 <meta property="og:site_name" content="Learn And Teach">
 <meta property="og:description" content="二叉树树的结构12345678910111213141516171819202122public TreeNode &amp;#123;    TreeNode left;    TreeNode right;    int val;    TreeNode()&amp;#123;&amp;#125;;    TreeNode(int val) &amp;#123;        this.val &#x3D; val;    &amp;#125">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-30T21:20:37.157Z">
-<meta property="article:modified_time" content="2022-05-31T23:56:12.307Z">
+<meta property="article:published_time" content="2022-07-12T02:07:01.000Z">
+<meta property="article:modified_time" content="2022-07-12T02:07:13.346Z">
 <meta property="article:author" content="Weitianle">
+<meta property="article:tag" content="algorithm">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2022/05/31/%E4%BA%8C%E5%8F%89%E6%A0%91/">
+<link rel="canonical" href="http://example.com/2022/07/12/Algorithm-Tree/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/05/31/%E4%BA%8C%E5%8F%89%E6%A0%91/","path":"2022/05/31/二叉树/","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/07/12/Algorithm-Tree/","path":"2022/07/12/Algorithm-Tree/","title":"Algorithm-Tree"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title> | Learn And Teach</title>
+<title>Algorithm-Tree | Learn And Teach</title>
   
 
 
@@ -126,7 +127,7 @@
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -165,7 +166,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/31/%E4%BA%8C%E5%8F%89%E6%A0%91/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/12/Algorithm-Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -178,12 +179,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | Learn And Teach">
+      <meta itemprop="name" content="Algorithm-Tree | Learn And Teach">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          Algorithm-Tree
         </h1>
 
         <div class="post-meta-container">
@@ -193,15 +194,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-05-31 05:20:37" itemprop="dateCreated datePublished" datetime="2022-05-31T05:20:37+08:00">2022-05-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-01 07:56:12" itemprop="dateModified" datetime="2022-06-01T07:56:12+08:00">2022-06-01</time>
+      <time title="创建时间：2022-07-12 10:07:01 / 修改时间：10:07:13" itemprop="dateCreated datePublished" datetime="2022-07-12T10:07:01+08:00">2022-07-12</time>
     </span>
 
   
@@ -215,12 +210,15 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h2 id="树的结构"><a href="#树的结构" class="headerlink" title="树的结构"></a>树的结构</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> TreeNode &#123;</span><br><span class="line">    TreeNode left;</span><br><span class="line">    TreeNode right;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    TreeNode()&#123;&#125;;</span><br><span class="line">    TreeNode(<span class="type">int</span> val) &#123;</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode(TreeNode left, TreeNode right, <span class="type">int</span> val)&#123;</span><br><span class="line">        <span class="built_in">this</span>.left = left;</span><br><span class="line">        <span class="built_in">this</span>.right = right;</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">//先序</span></span><br><span class="line">    traverse(root.left);</span><br><span class="line">    <span class="comment">//中序</span></span><br><span class="line">    traverse(root.right);</span><br><span class="line">    <span class="comment">//后序</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <pre><code>二叉树的遍历
 </code></pre>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">preorderTraverse</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 前序遍历的结果，root.val 在第一个</span></span><br><span class="line">    res.add(root.val);</span><br><span class="line">    <span class="comment">// 利用函数定义，后面接着左子树的前序遍历结果</span></span><br><span class="line">    res.addAll(preorderTraverse(root.left));</span><br><span class="line">    <span class="comment">// 利用函数定义，最后接着右子树的前序遍历结果</span></span><br><span class="line">    res.addAll(preorderTraverse(root.right));</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><pre><code>1. 二叉树的最大深度
 </code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TreeNode</span>&#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    TreeNode left;</span><br><span class="line">    TreeNode right;</span><br><span class="line">    TreeNode()&#123;&#125;</span><br><span class="line">    TreeNode(<span class="type">int</span> val)&#123;</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode(<span class="type">int</span> val, TreeNode left, TreeNode right)&#123;</span><br><span class="line">        <span class="built_in">this</span>.val =val;</span><br><span class="line">        <span class="built_in">this</span>.left = left;</span><br><span class="line">        <span class="built_in">this</span>.right = right</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 深度=左子树/右子树</span></span><br><span class="line"><span class="comment">//递归实现</span></span><br><span class="line"><span class="type">int</span> res;</span><br><span class="line"><span class="type">int</span> <span class="variable">depth</span> <span class="operator">=</span><span class="number">0</span> ;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    traverse(root);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    depth++;</span><br><span class="line">    <span class="keyword">if</span> (root.left == <span class="literal">null</span> &amp;&amp; root.right ==<span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">//到达叶子节点</span></span><br><span class="line">        res = Math.max(res, depth);</span><br><span class="line">    &#125;</span><br><span class="line">    traverse(root.left);</span><br><span class="line">    traverse(root.right);</span><br><span class="line">    depth--;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//分解实现</span></span><br><span class="line"><span class="comment">// 深度=max(left, right) + 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> Math.max(maxDepth(root.left), maxDepth(root.right)) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">2.</span> 二叉树的最大直径</span><br><span class="line"></span><br><span class="line"><span class="comment">//一个节点的最大直径=左最深 + 右最深 +1</span></span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">depth</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">diameterOfBinaryTree</span><span class="params">(TreeNode root)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        maxDepth(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">leftMax</span> <span class="operator">=</span> maxDepth(root.left);</span><br><span class="line">        <span class="type">int</span> <span class="variable">rightMax</span> <span class="operator">=</span> maxDepth(root.right);</span><br><span class="line">        res = Math.max(res, leftMax + rightMax);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> + Math.max(leftMax, rightMax);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TreeNode</span>&#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    TreeNode left;</span><br><span class="line">    TreeNode right;</span><br><span class="line">    TreeNode()&#123;&#125;</span><br><span class="line">    TreeNode(<span class="type">int</span> val)&#123;</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode(<span class="type">int</span> val, TreeNode left, TreeNode right)&#123;</span><br><span class="line">        <span class="built_in">this</span>.val =val;</span><br><span class="line">        <span class="built_in">this</span>.left = left;</span><br><span class="line">        <span class="built_in">this</span>.right = right</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 深度=左子树/右子树</span></span><br><span class="line"><span class="comment">//递归实现</span></span><br><span class="line"><span class="type">int</span> res;</span><br><span class="line"><span class="type">int</span> <span class="variable">depth</span> <span class="operator">=</span><span class="number">0</span> ;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    traverse(root);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    depth++;</span><br><span class="line">    <span class="keyword">if</span> (root.left == <span class="literal">null</span> &amp;&amp; root.right ==<span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">//到达叶子节点</span></span><br><span class="line">        res = Math.max(res, depth);</span><br><span class="line">    &#125;</span><br><span class="line">    traverse(root.left);</span><br><span class="line">    traverse(root.right);</span><br><span class="line">    depth--;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//分解实现</span></span><br><span class="line"><span class="comment">// 深度=max(left, right) + 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> Math.max(maxDepth(root.left), maxDepth(root.right)) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">2.</span> 二叉树的最大直径</span><br><span class="line"></span><br><span class="line"><span class="comment">//一个节点的最大直径=左最深 + 右最深 +1</span></span><br><span class="line"></span><br><span class="line">​```java</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">depth</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">diameterOfBinaryTree</span><span class="params">(TreeNode root)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        maxDepth(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">leftMax</span> <span class="operator">=</span> maxDepth(root.left);</span><br><span class="line">        <span class="type">int</span> <span class="variable">rightMax</span> <span class="operator">=</span> maxDepth(root.right);</span><br><span class="line">        res = Math.max(res, leftMax + rightMax);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> + Math.max(leftMax, rightMax);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
 <pre><code>后序遍历是一个自底向上的操作过程，当需要子树信息时可以优先考虑。
 即遇到子树问题，首先想到的是给函数设置返回值，然后在后序位置做文章。
 
@@ -240,24 +238,7 @@ TreeNode buildTree(int[] preorder, int[] inorder)&#123;&#125;;
 
 <pre><code>5. 层序遍历
 </code></pre>
-<pre><code class="java">void levelTraverse(TreeNode root) &#123;
-    if (root == null) return ;
-    Queue&lt;TreeNode&gt; q = new LinkedList&lt;&gt;();
-    q.offer(root);
-    while (!q.isEmpty()) &#123;
-        int size = q.size;
-        for (int i=0; i&lt;size; i++) &#123;
-            TreeNode cur = q.poll();
-            //处理节点
-            if (cur.left != null) q.offer(cur.left);
-            if (cur.right != null) q.offer(cur.right);
-        &#125;
-
-    &#125;
-&#125;
-
-</code></pre>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">levelTraverse</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> ;</span><br><span class="line">    Queue&lt;TreeNode&gt; q = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    q.offer(root);</span><br><span class="line">    <span class="keyword">while</span> (!q.isEmpty()) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> q.size;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>; i&lt;size; i++) &#123;</span><br><span class="line">            <span class="type">TreeNode</span> <span class="variable">cur</span> <span class="operator">=</span> q.poll();</span><br><span class="line">            <span class="comment">//处理节点</span></span><br><span class="line">            <span class="keyword">if</span> (cur.left != <span class="literal">null</span>) q.offer(cur.left);</span><br><span class="line">            <span class="keyword">if</span> (cur.right != <span class="literal">null</span>) q.offer(cur.right);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -265,19 +246,19 @@ TreeNode buildTree(int[] preorder, int[] inorder)&#123;&#125;;
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/algorithm/" rel="tag"># algorithm</a>
+          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/05/30/#%20%E7%AE%97%E6%B3%95-%E9%93%BE%E8%A1%A8/" rel="prev" title="">
-                  <i class="fa fa-chevron-left"></i> 
+                <a href="/2022/07/12/Algorithm-Graph/" rel="prev" title="Algorithm-Graph">
+                  <i class="fa fa-chevron-left"></i> Algorithm-Graph
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/06/01/%E5%9B%BE/" rel="next" title="">
-                   <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

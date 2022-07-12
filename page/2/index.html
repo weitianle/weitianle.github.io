@@ -123,7 +123,7 @@
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -161,7 +161,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/10/#%20%E6%95%B0%E6%8D%AE%E5%BA%93/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/30/%E8%BD%AC%E8%BD%BD-%E3%80%8A%E5%9C%A3%E9%83%BD%E5%B8%83%E5%B0%94%E4%B9%94%E3%80%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -179,7 +179,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/10/#%20%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">未命名</a>
+          <a href="/2022/06/30/%E8%BD%AC%E8%BD%BD-%E3%80%8A%E5%9C%A3%E9%83%BD%E5%B8%83%E5%B0%94%E4%B9%94%E3%80%8B/" class="post-title-link" itemprop="url">《圣都布尔乔》</a>
         </h2>
 
         <div class="post-meta-container">
@@ -189,15 +189,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-10 16:33:39" itemprop="dateCreated datePublished" datetime="2022-06-10T16:33:39+08:00">2022-06-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-18 08:41:06" itemprop="dateModified" datetime="2022-06-18T08:41:06+08:00">2022-06-18</time>
+      <time title="创建时间：2022-06-30 10:42:02 / 修改时间：15:12:28" itemprop="dateCreated datePublished" datetime="2022-06-30T10:42:02+08:00">2022-06-30</time>
     </span>
 
   
@@ -210,53 +204,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><ol>
-<li><p>三范式<br> 数据库第一二三范式到底在说什么？ - 刘慰的文章 - 知乎<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20028672">https://zhuanlan.zhihu.com/p/20028672</a></p>
-<ul>
-<li><p>1NF<br>  一个字段表示一个值。不能再分解。比如进货单价和进货数量 必须分开两个字段。</p>
-</li>
-<li><p>2NF<br>  部分函数依赖,2NF在1NF的基础之上，消除了非主属性对于码的部分函数依赖。即假设选择码(A, B）- &gt; C ，则不能直接有A（或B）确认c。</p>
-</li>
-<li><p>3NF<br>  全部函数依赖。3NF在2NF的基础之上，消除了非主属性对于码的传递函数依赖。在码（A)-&gt;B, B-&gt;C, 则出现了传递函数依赖，此时应该分表为 ab, bc；</p>
-</li>
-<li><p>BC范式<br>  主码的传递函数依赖。在3NF的基础上，消除了主属性对码的部分与传递函数依赖。举例：在码（A，B，C）-&gt;D 中，A-&gt;B，此时应该分表为AB，AC-&gt;D;</p>
-<p>  1人不分解、2人抱团、3人传递、BC抱团者独立。</p>
-</li>
-</ul>
-</li>
-<li><p>事务、问题、隔离级别<br> 逻辑上的一组操作，要么都执行，要么都不执行。<br> 事务的ACID特性。</p>
-<ul>
-<li>atomicity   原子性</li>
-<li>consistency 一致性 业务相关、程序员规定。比如A给B转钱，一致性的含义就是AB总钱不变。</li>
-<li>isolation   隔离性 各个事务之间是隔离开来、互不影响的。</li>
-<li>durability  持久性 对数据的改变是持久的，会落到存储介质上。<br> 原子性，隔离性和持久性是数据库的属性，而一致性（在 ACID 意义上）是应用程序的属性。</li>
-</ul>
-<p> 事务拥有隔离性，但事务并发仍会带来问题。</p>
-<p> 脏 读-读到脏数据，脏数据指别人刚改但没提交的。<br> 丢失修改- B改了A改的数据<br> 不可重复读- 对一条记录，对第一次和第二次之间有别的事务改动，<br> 幻读 - 对同一张表，读到了别人新增或者删除的改动</p>
-<p> 针对这些问题（脏读、不可重复读、幻读），定义以下隔离级别</p>
-<ul>
-<li>读取未提交 可以读没提交的数据，问题最大</li>
-<li>读取已提交 没提交的不能读，避免了脏读。但是已提交的可能会影响自身，导致不可重复读和幻读。</li>
-<li>可重复读  保证多次读同一条是一样的，但是不能避免幻读（条目增加&#x2F;减少）。</li>
-<li>可串行化<br>  前三者由MVCC实现，可串行化由锁实现。mysql默认隔离级别是可重复读。<br> 怎么解决幻读？<br>  可串行化&#x2F;表锁&#x2F;next-key lock(行锁+间隙锁)<br> 什么是MVCC ?</li>
-</ul>
-</li>
-<li><p>数据库中的锁<br> 行锁-根据索引进行锁，没命中索引的话会锁表。<br> 意向锁是一种快速判断表锁与可能存在的行锁冲突的机制<br> IX，IS是表级锁，不会和行级的X，S锁发生冲突。只会和表级的X，S发生冲突。<br> 参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/52312376">https://zhuanlan.zhihu.com/p/52312376</a></p>
-</li>
-<li><p>索引<br> 底层结构：</p>
-<ul>
-<li>hash索引<br>  利用哈希函数进行精准定位，所以快。也因此不能范围查找。还会有hash冲突。</li>
-<li>B树&#x2F;B+<br>  b树的所有节点都会存储key和data（单个查询快），B+树只有叶子节点会存储data,其他节点存储key。<br>  b+树叶子节点相邻间是有指针的，方便遍历。</li>
-</ul>
-<p> 待确认：为什么Mongodb索引用B树，而Mysql用B+树? - 孤独烟的文章 - 知乎<br> <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/107228878">https://zhuanlan.zhihu.com/p/107228878</a></p>
-<p> 类型：<br> 聚集索引（数据和索引放在叶子节点、更新代价大主键一般不可变）、<br> 非聚集索引（索引和数据是分开存放的，比如二级索引叶子节点存一个主键，但没有数据，需要回表查询数据。所以更新代价较小）、</p>
-<p> 覆盖索引：要查的索引都有：一个索引包含所有需要查询的字段的值<br> 最左匹配原则：联合索引（多个字段）使用时，按最左的匹配（遇到范围就停）</p>
-</li>
-<li><p>日志</p>
-</li>
-<li></li>
-<li></li>
-</ol>
+          <h1 id="《圣都布尔乔》"><a href="#《圣都布尔乔》" class="headerlink" title="《圣都布尔乔》"></a>《圣都布尔乔》</h1><p>我是狗<br>月亮升起来的时候，我就要开始嚎叫，我也不知道我为什么要叫，但是体内总有一种野性在升腾,那可能是远古祖先留给我的血脉，像根植在我血液中的一条通天巨藤，每次月圆夜，我就要沿着这条藤往上爬，爬到和天齐高的地方。没什么可受质疑的，血脉是最牢不可破的誓言，也可以把它当成一种暗示，一种召唤。<br>我已经感受到这种召唤了。</p>
+<p>我是吉秋<br>     你见过一株金盏花被照亮的样子吗，一开始的世界是暗淡的，眼睛由于长时间盯着昏暗的地方而愈发疲惫，就当你觉得它快要丧失光感的时候，世界就那么一小点、一小点地亮起来了。先是黝黑的土地被镀上一层银色光晕，再是托举花朵的茎叶，然后就是花瓣了，银色的光辉从这一瓣流淌到下一瓣，花瓣间促拢像酒杯似的凹陷盛满月光，带来了金色，红得黯淡，金得耀眼，整个世界就在你面前展开了。<br>在等待柴火将晚饭烧热的间隙，我经常这样观察这朵花，这对我来说像个好玩的游戏——趁着太阳落山那一刻把柴火备好，切开，在锅下面叠整齐，点火，然后等待月光照亮长在栅栏这旁的金盏花，挪步回去，慢悠悠地加入一早切好的胡萝卜和土豆块，我喜欢观察土豆在锅里越煮越黄的样子、胡萝卜将自己的颜色融入汤里的过程，然后端进屋里，叫自己的师傅皮尔切和他的妻子德塔以及三个不知道刚从哪个泥巴坑里翻滚出来的孩子上桌吃饭。<br>他们一定不会发现，自己吃饭的时间竟是由门前栅栏旁那朵毫不起眼的金盏花决定的。这种掌控感让我感觉窃喜。<br>皮尔切是村子里最好的木工，有一天他在给诺尔家做桌子的时候被锯子割伤了手，随即流出来的鲜红的血让他有了一种被背叛的感觉：被这把他常年累月使用的最熟悉的锯子背叛，被时间背叛。这种感觉让他找到了我父亲，说想要收我做他的学徒。父亲那时候正在为今年欠收的谷子地发愁，他一手撑在锄头上，一手抹了抹自己鼻尖的汗，有些窘迫地说：“那个……我很乐意让我的儿子去学点什么，有个手艺在这个世道真是一件最幸福不过的事。只是我们家已经快吃不起饭了，实在是没有什么钱，没办法缴纳那笔学徒费用。”<br>“要不您看这样……”<br>“没什么，我还可以给你十捆柴火。”皮尔切很快地打断了他，“我也是看你们是村里最穷的人家，想帮帮你们。这样，先让他在我这干活几年，一边干活，我一边教他手艺，学徒费一分不收。但条件是，等他出师，得先为我免费做工三年。”<br>父亲在脑海里盘算起来，但是一个下午的耕作已经让他的脑袋里由汗液粘成了一团浆糊，做工，免费，这些词他一概也没听清，只是想着自己的儿子能学到一手木工手艺，以后可以代替皮尔切在村子里接活，等多干几年熟练以后，说不定会把生意做到村外，做到市里也不一定。那他们世世代代种谷子的命运算是在他这断绝了，没有比这更好的交易，他装模作样地思索了一阵后同意了，浑然不觉其实这样只是免费卖掉了一个快要身强力壮的劳力，甚至比昨天卖掉的那只五十比索的老年母牛还要便宜。在几年后，他开始感到对农活力不从心而腰酸背痛的无数个日夜里，他经常会这么想“我的儿子甚至不如一只五十比索的牛，就这样被我卖给了皮尔切。该死的皮尔切，该死的厄运，只会欺负我这样靠双手吃饭的可怜人。”这样的想法一直持续到我失踪不见，持续到他的不如意的老年。<br>在这个村子里，没有人会刻意养花，这是瑞玛王朝里最穷也最微不足道的一个村子，如果把瑞玛王朝广阔的土地看成是一个鸡蛋，那这个村子就是鸡蛋下半部壳上一个最普通不过的气孔，可能是一群旅人依着小溪建立起一个营寨，但要知道，在长途跋涉中最能阻挡人脚步的可能不是突然出现的强盗野兽，也不是有了上顿没下顿的饥荒，而是突如其来的放松和休息，几个旅人扎营建寨，就着篝火的光亮回忆往昔，劣质酒精像一把锤头，锤散了他们的斗志，从此认命，想着这个地方又靠近小溪，又是平原，离一个规模不大不小的镇子路途也不远，酒精和火光烘托出一种宿命感，不如就当定居下来的第一群人吧。<br>鸡蛋王朝的下半部亮起一丝光亮，又很快变成了一户，几户，十几户，几十户。可能会继续扩大，也可能会很快熄灭。在这天高皇帝远的地方，一个普通地主可能比住在鸡蛋北部，从不踏出皇宫之外的王更有势力。忠诚只是一种宗教，人们左右盘旋，看看哪个宗教供奉的神更能给予精神的安定。<br>这个村没有人会养花，村民把对生活的热情全部献祭给了活着的每一时刻：种地，学一门手艺，干活，煮饭，生孩子……一点不剩。<br>当然，除了我，我是吉秋，我见过一株金盏花被月亮照亮的样子。</p>
+<p>我是逃离<br>     很多人都会在生活的某个时刻想到我，可是很多人也都会误会我。<br>     我乔装成很多种样子：一阵由近及远的马蹄声，一顿还没有下锅的晚饭，一段暴躁如雷的争吵，一句突如其来的抱怨……我喜欢潜伏在这些瞬间，可是我没什么耐心，很快我又会离开，因为我知道这里面的大部分人都缺乏勇气。</p>
+<p>（突然的灵感：逃离认为有勇气的人它会给予他们一点什么，这本书可以误导为找到圣都布尔乔彻底改变命运或者改变这个时代，但其实逃离给予的是主角在路上的各种细节：和朋友的信任，争吵，微醺的夜晚，对明天的希冀，一路看到的美景……这就是逃离给予他的，全新的生活。毕竟到了布尔乔后，什么都不会发生，这是这个时代注定的结局，个人的努力挽不回整个时代的落后。）</p>
+<hr>
+<p>该文若未经作者同意，不得转载和用作其他用途。</p>
 
       
     </div>
@@ -283,7 +236,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/08/#%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/http-status-code/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -301,7 +254,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/08/#%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-title-link" itemprop="url">未命名</a>
+          <a href="/2022/06/29/http-status-code/" class="post-title-link" itemprop="url">http-status-code.md</a>
         </h2>
 
         <div class="post-meta-container">
@@ -311,15 +264,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-08 10:39:39" itemprop="dateCreated datePublished" datetime="2022-06-08T10:39:39+08:00">2022-06-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-20 14:56:30" itemprop="dateModified" datetime="2022-06-20T14:56:30+08:00">2022-06-20</time>
+      <time title="创建时间：2022-06-29 14:27:54 / 修改时间：15:07:09" itemprop="dateCreated datePublished" datetime="2022-06-29T14:27:54+08:00">2022-06-29</time>
     </span>
 
   
@@ -332,51 +279,287 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><ol>
-<li>osi七层网络模型</li>
-</ol>
-<ul>
-<li>应用层     常见程序，HTTP&#x2F;FTP&#x2F;SMTP</li>
-<li>表示层     数据处理  HTML DOC等, 信息转换</li>
-<li>会话层     管理会话，包括建立、维护、重连 SSL、TLS,</li>
-<li>传输层     数据传输  tcp&#x2F;udp&#x2F;SSL   </li>
-<li>网络层     路由寻址  IP&#x2F;ARP&#x2F;ICMP  </li>
-<li>数据链路层 管理相邻节点直接的数据通信，MAC, 将bit流转为逻辑传输。</li>
-<li>物理层     传输介质传递bit流  网线</li>
-</ul>
+          <h1 id="常用http状态码"><a href="#常用http状态码" class="headerlink" title="常用http状态码"></a>常用http状态码</h1><p>分类：</p>
+<pre><code>1. 信息类 100预请求成功，可继续。 101切换协议
+</code></pre>
 <ol start="2">
-<li>TCP、IP</li>
+<li>成功    200成功，201创建了资源。202接受但没处理完。204处理成功但无返回。206成功处理部分。</li>
+<li>重定向  301已永久移动到新地址，302临时移动到新地址。304请求的资源未修改，服务器不返回资源，可继续用缓存。305代理。</li>
+<li>客户端。400 客户端语法错误，服务器无法理解。401 未登录，要身份验证。403 拒绝执行。404找不到资源。405 方法被禁止。</li>
+<li>服务器端 500服务器内部错误，无法完成请求。常见异常。 501不支持功能。502网关错误。 503超时。504网关超时。505 http协议超时。</li>
 </ol>
-<p>应用层  传输层  网络层  网络接口层<br>报文、用户数据报、IP数据报、帧+bit</p>
-<ol start="3">
-<li>http 与 HTTPS 区别</li>
+<p>这类码，需要经常接触才能熟悉。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/http/http-status-codes.html">https://www.runoob.com/http/http-status-codes.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/26/regular-expression/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weitianle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn And Teach">
+      <meta itemprop="description" content="Stay hungry">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Learn And Teach">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/06/26/regular-expression/" class="post-title-link" itemprop="url">regular-expression.md</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-26 09:01:24" itemprop="dateCreated datePublished" datetime="2022-06-26T09:01:24+08:00">2022-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-28 22:21:05" itemprop="dateModified" datetime="2022-06-28T22:21:05+08:00">2022-06-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Regular-Expression-正则表达式-一"><a href="#Regular-Expression-正则表达式-一" class="headerlink" title="Regular Expression 正则表达式 (一)"></a>Regular Expression 正则表达式 (一)</h1><p>正则表达式用于字符串查找和匹配。此篇用于基础，后续会更新进阶。</p>
+<p>先自行思考接触过的正则表达式，然后再根据下文查漏补缺。</p>
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p>\d				匹配数字</p>
+<p>\w				匹配字母或数字或下划线或汉字</p>
+<p>\s					匹配空白字符</p>
+<p>^					开始符号</p>
+<p>$					结束符号</p>
+<p>\b					匹配单词开始或结束</p>
+<h2 id="重复限定符"><a href="#重复限定符" class="headerlink" title="重复限定符"></a>重复限定符</h2><p>.  			  匹配任意一个字符(换行符除外)</p>
+<p>\ 			  反斜杠转义</p>
+<p>？			 匹配0次或一次</p>
+<p>*			   匹配0次或多次</p>
+<p>+				匹配1次或多次</p>
+<p>{n} 	        重复n次</p>
+<p>{n, }		   重复n次或更多次</p>
+<p>{n, m}		 重复n-m次</p>
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><p>（） 小括号括起来为一组</p>
+<h2 id="或"><a href="#或" class="headerlink" title="或"></a>或</h2><p>｜  eg: ^(189 | 180 | 177)\d{8} $</p>
+<h2 id="区间"><a href="#区间" class="headerlink" title="区间"></a>区间</h2><p>[0-9]、[a-z]、[]. </p>
+<h2 id="进阶知识点"><a href="#进阶知识点" class="headerlink" title="进阶知识点"></a>进阶知识点</h2><h3 id="零宽断言"><a href="#零宽断言" class="headerlink" title="零宽断言"></a>零宽断言</h3><p>断言： 指定内容前后会有满足规则的内容。</p>
+<p>零宽：没有宽度，指指匹配位置，不匹配断言本身。</p>
+<p>即零宽返回值都不包含以下例子中的pattern。</p>
+<h4 id="正向先行"><a href="#正向先行" class="headerlink" title="正向先行"></a>正向先行</h4><p>?&#x3D; pattern， 匹配pattern前面的内容。</p>
+<h4 id="正向后行"><a href="#正向后行" class="headerlink" title="正向后行"></a>正向后行</h4><p>?&lt;&#x3D;pattern, 匹配pattern后面的内容</p>
+<h4 id="负向先行"><a href="#负向先行" class="headerlink" title="负向先行"></a>负向先行</h4><p>?!pattern， 匹配非pattern的前面内容。</p>
+<h4 id="负向后行"><a href="#负向后行" class="headerlink" title="负向后行"></a>负向后行</h4><p>?&lt;!pattern, 匹配非pattern的后面内容。</p>
+<h2 id="捕获和非捕获"><a href="#捕获和非捕获" class="headerlink" title="捕获和非捕获"></a>捕获和非捕获</h2><p>捕获一般与分组联系在一起。</p>
+<h4 id="数字编号捕获组"><a href="#数字编号捕获组" class="headerlink" title="数字编号捕获组"></a>数字编号捕获组</h4><p>(exp)	表达式从左往右，遇到左括号就分一个组。第0组为整个表达式，但不计入分组数量。</p>
+<p>(0\d{2})-(\d{8})</p>
+<h4 id="命名编号捕获组"><a href="#命名编号捕获组" class="headerlink" title="命名编号捕获组"></a>命名编号捕获组</h4><p>(?<name>exp) , 可以用命名来区分组。</p>
+<p>(?<quhao>\0\d{2})-(?<haoma>\d{8})</p>
+<h4 id="非捕获组"><a href="#非捕获组" class="headerlink" title="非捕获组"></a>非捕获组</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(?:exp)</span><br><span class="line">为避免捕获组分组占用内存，只进行分组，内容不捕获到组里。</span><br><span class="line">比如要匹配一些用（）保证顺序，验证日期的时候。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p> (?:0\d{2})-(\d{8})</p>
+<h4 id="反向引用"><a href="#反向引用" class="headerlink" title="反向引用"></a>反向引用</h4><p>\捕获组编号</p>
+<p>基础正则表达式没有记忆能力，所以要用捕获和引用才能记住之前搜过的。</p>
+<p>eg: 先捕获一个组，根据数字编号就可以再次用它。</p>
+<p>(\w)\1</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>正则内容暂时就写到这，以前也只学过简单内容，没想到还有进阶内容。熟能生巧，正则这玩意儿还是得靠多多练习。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/22/First-blog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weitianle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn And Teach">
+      <meta itemprop="description" content="Stay hungry">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Learn And Teach">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/06/22/First-blog/" class="post-title-link" itemprop="url">First blog :个人博客搭建</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-22 21:00:32" itemprop="dateCreated datePublished" datetime="2022-06-22T21:00:32+08:00">2022-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-23 09:26:58" itemprop="dateModified" datetime="2022-06-23T09:26:58+08:00">2022-06-23</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="个人博客搭建"><a href="#个人博客搭建" class="headerlink" title="个人博客搭建"></a>个人博客搭建</h1><p>本文介绍如何在mac上搭建github个人博客，技术选择hexo。第一篇记录如何开始。</p>
+<p>步骤：</p>
+<ol>
+<li>安装工具及依赖</li>
+<li>初始化博客并在本地启动</li>
+<li>博文更新</li>
+<li>部署至github</li>
+<li>更换主题</li>
 </ol>
-<p>http无状态。<br>https额外使用SSL&#x2F;TLS协议。<br>SSL&#x2F;TLS 先对对称加密密钥k进行非对称加密，再对内容用对称密钥进行对称加密。<br>公钥是由服务器通过网络发放，可能被仿造，如何保证公钥可信？数字签名。</p>
-<ul>
-<li>先由Certificate Authority 即CA发放证书，通过散列+加密。<ol>
-<li>CA先用散列对服务器公钥生成摘要，然后用CA私钥对摘要加密。</li>
-<li>客户端收到服务器发过来的证书，先从CA拿公钥，解密摘要得到待确认的服务器公钥。</li>
-<li>客户端再用散列对服务器公钥生成摘要，比对摘要是否一致。若一致则身份得到验证。</li>
-</ol>
+<h2 id="1-安装工具及依赖"><a href="#1-安装工具及依赖" class="headerlink" title="1. 安装工具及依赖"></a>1. 安装工具及依赖</h2><p>安装hexo需要先安装Node.js, 因为hexo基于Node.js开发的。另外再安装git用于部署到github。</p>
+<p>依次执行以下命令：（$表示一行开头，不用输入）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ brew install node</span><br><span class="line"></span><br><span class="line">$ brew install git </span><br><span class="line"></span><br><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-初始化博客并在本地启动"><a href="#2-初始化博客并在本地启动" class="headerlink" title="2. 初始化博客并在本地启动"></a>2. 初始化博客并在本地启动</h2><ol>
+<li><p>利用cd进入到用来放博客的地方。</p>
 </li>
-<li>如何确保CA的可信？ 根证书预先装在浏览器、系统中，拥有信赖的CA机构名单和公钥，不需要通过网络传输。</li>
-</ul>
+<li><p>新建文件夹，名字任取，本文取名为blog。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir blog</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入文件夹并初始化。（初始化要求文件夹里面全空）</p>
+<p>依次执行以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd blog</span><br><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>恭喜你，此时就已经搭建好本地的hexo博客系统了。再输入以下命令，即可本地启动看到效果！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器输入：<a href="https://link.zhihu.com/?target=http://localhost:4000/">http://localhost:4000</a>，会有hello world 博文。</p>
+<p>此时初始化完成。</p>
+<p>初始化完成后，直接找到blog文件夹，用编辑器打开&#x2F;blog&#x2F;source&#x2F;_posts，你会看到hello-world.md文件，点开探索一下吧！博客文章使用markdown语言进行编辑，可以先简单学习下。</p>
+<p>然后可以多点开看看Blog其他文件夹下面有什么东西，探索一下，保持好奇心，但请先不要修改。</p>
+</li>
+</ol>
+<h2 id="3-博文更新"><a href="#3-博文更新" class="headerlink" title="3. 博文更新"></a>3. 博文更新</h2><p>有了helloword, 自然就想进行下一步，创建属于自己的博文。在&#x2F;blog&#x2F;source&#x2F;_posts目录下创建新文件，命名为First-blog.md。这里可以用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo n &quot;文件名.文件后缀&quot;</span><br></pre></td></tr></table></figure>
+
+<p>来新建文件，也可以手动创建。然后开始自由创作吧！第一篇文章可以写写搭建博客过程的心路历程，当作纪念。</p>
+<p>创作完成后按下保存，然后命令行来到&#x2F;blog目录下，</p>
+<p>依次执行以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 清理</span><br><span class="line">$ hexo clean</span><br><span class="line">// 生成</span><br><span class="line">$ hexo g</span><br><span class="line">// 本地启动</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器输入：<a href="http://localhost:4000，会有不一样的发现。">http://localhost:4000，会有不一样的发现。</a></p>
+<h2 id="4-部署至Github"><a href="#4-部署至Github" class="headerlink" title="4. 部署至Github"></a>4. 部署至Github</h2><p>上面的操作都是在本地进行的，所以只能通过localhos:4000访问。别的电脑是无法访问该地址的，所以我们要想办法放到一个地方，能让他人进行访问。github能很方便、不花钱地让我们进行部署。所以取github注册好账号吧～</p>
+<ol>
+<li><h4 id="创建repository"><a href="#创建repository" class="headerlink" title="创建repository"></a>创建repository</h4><p>点击新建一个repository,中文名叫仓库。 命名为owner.github.io, 其中owner改成自己的github昵称。不需要再点其他内容，然后创建。</p>
+<p>创建完成后可以看到有个https&#x2F;ssh表示的仓库地址，下面会用到。</p>
+</li>
+<li><h4 id="本地安装git部署插件"><a href="#本地安装git部署插件" class="headerlink" title="本地安装git部署插件"></a>本地安装git部署插件</h4><p>那本地hexo要和远程连接，连接需要通过工具。所以这里需要装一个插件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h4><p>工具装好了，需要用起来，即指定好要连接哪个远程repository。</p>
+<p>进入&#x2F;blog文件夹，看到_config.yml，yml类型是常用的配置文件类型，通过k-v配对。滑到最下面看到depoly是空的，将它补全，指定到远程仓库，然后保存文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">	repo: https://github.com/owner/owner.github.io.git</span><br></pre></td></tr></table></figure>
+
+<p>记得owner改成自己的github昵称。使用https需要github账号密码。</p>
 <blockquote>
-<blockquote>
-<p>参考链接：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV18N411X7ty/">https://www.bilibili.com/video/BV18N411X7ty/</a></p>
+<p>这里可以换成ssh。使用ssh等于将本机添加到这个github账号的信任名单中，之后再对仓库进行操作就不用输入账号密码了。先搜索如何github ssh。完成后再来修改_config.yml, type不变， repo需修改为ssh的repo地址。如：repo: <a href="mailto:&#103;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#46;&#x63;&#x6f;&#x6d;">&#103;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#46;&#x63;&#x6f;&#x6d;</a>:owner&#x2F;owner.github.io.git。</p>
 </blockquote>
-</blockquote>
-<ol start="4">
-<li><p>http1.0 与 http 1.1  <a target="_blank" rel="noopener" href="https://javaguide.cn/cs-basics/network/http1.0&amp;http1.1.html#%E5%8E%8B%E7%BC%A9">https://javaguide.cn/cs-basics/network/http1.0&amp;http1.1.html#压缩</a></p>
 </li>
-<li><p>tcp三次握手和四次挥手过程<br> 三次握手才可以阻止重复历史连接的初始化（主要原因）<br> 三次握手才可以同步双方的初始序列号<br> 三次握手才可以避免资源浪费</p>
-<p> 保证客户端发送的最后一个ack报文段能够到达服务器。因为这最后一个ack确认包可能会丢失，然后服务器就会超时重传第三次挥手的fin信息报，然后客户端再重传一次第四次挥手的ack报文。如果没有这2msl，客户端发送完最后一个ack数据报后直接关闭连接，那么就接收不到服务器超时重传的fin信息报(此处应该是客户端收到一个非法的报文段，而返回一个RST的数据报，表明拒绝此次通信，然后双方就产生异常，而不是收不到。)，那么服务器就不能按正常步骤进入close状态。那么就会耗费服务器的资源。当网络中存在大量的timewait状态，那么服务器的压力可想而知。</p>
-<p> 原因2：在第四次挥手后，经过2msl的时间足以让本次连接产生的所有报文段都从网络中消失，这样下一次新的连接中就肯定不会出现旧连接的报文段了。也就是防止我们上一篇文章 为什么tcp是三次握手而不是两次握手？  中说的：已经失效的连接请求报文段出现在本次连接中。如果没有的话就可能这样：这次连接一挥手完马上就结束了，没有timewait。这次连接中有个迷失在网络中的syn包，然后下次连接又马上开始，下个连接发送syn包，迷失的syn包忽然又到达了对面，所以对面可能同时收到或者不同时间收到请求连接的syn包，然后就出现问题了。</p>
-</li>
-<li><p>timewait</p>
-</li>
+<li><h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></li>
 </ol>
-<p>7</p>
+<h2 id="5-更换主题"><a href="#5-更换主题" class="headerlink" title="5. 更换主题"></a>5. 更换主题</h2><p>   hexo本身自带的主题不错，但我想要更好看的。hexo主题官网：<a target="_blank" rel="noopener" href="https://hexo.io/themes/">https://hexo.io/themes/</a> 点开先探索下吧！</p>
+<p>   我选择极简next主题。参考：<a href="https://theme-next.js.org，使用文档：https://theme-next.js.org/docs/getting-started/。">https://theme-next.js.org，使用文档：https://theme-next.js.org/docs/getting-started/。</a>    </p>
+<p>   更换主题的流程：</p>
+<p>   ​	将这个主题的配置拉到本地blog文件夹，然后更改个性化配置，推到github进行更新。</p>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd blog</span><br><span class="line">$ git clone https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+
+<p>   拉下来之后会有两个_config.yml， 一个是blog文件夹下的老大，一个是theme文件夹中，你下载的主题文件夹的。</p>
+<p>   然后我们先找到老大，修改相应的配置，比如author, 比如title。都可以随心定制。</p>
+<p>   修改完之后，五步走。</p>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo s</span><br><span class="line">//本地先看看http://localhost:4000有没有修改成功，自测一下。没问题就部署到远程仓库去。</span><br><span class="line">//ctrl+c停止本地</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+
+<p>   此时已经部署完成，等待网站自动更新，再次打开博客地址就好了。</p>
+<p>   若网站没有即时更新，需要耐心等等。思考一下，why? </p>
+<p>   这里只更改了基本信息，想要更多个性化怎么办？</p>
+<p>   网站此时是托管在github上面，域名也是。想换成自己的网站和域名，怎么办？</p>
+<h1 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h1><p>建站遇到问题，很正常，不用怕。尝试清晰地描述自己做过的操作和发现的问题，能帮你更快地找到解决方案。</p>
+<p>博主一路上走走停停，却总是在第一步建站打圈。租过云服务器和域名，后面也放弃了。今天总算把第一步走完了，要坚持！后续会陆续更新大量文章，做一名输出型选手。</p>
+<p>我是唯天乐，一个正在探索费曼学习法的程序员。如果你有好的想法，欢迎邮箱联系我。</p>
+<p>希望文章对你有帮助。：）</p>
 
       
     </div>
@@ -403,7 +586,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/01/%E5%9B%BE/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/22/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -421,7 +604,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/01/%E5%9B%BE/" class="post-title-link" itemprop="url">未命名</a>
+          <a href="/2022/06/22/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
         </h2>
 
         <div class="post-meta-container">
@@ -432,14 +615,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-06-01 07:57:06" itemprop="dateCreated datePublished" datetime="2022-06-01T07:57:06+08:00">2022-06-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-02 10:51:27" itemprop="dateModified" datetime="2022-06-02T10:51:27+08:00">2022-06-02</time>
+      <time title="创建时间：2022-06-22 20:25:28" itemprop="dateCreated datePublished" datetime="2022-06-22T20:25:28+08:00">2022-06-22</time>
     </span>
 
   
@@ -452,321 +628,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//点</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Vertex</span> &#123;</span><br><span class="line">    <span class="type">int</span> label;</span><br><span class="line">    Vertex[] neighbors;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 邻接表</span></span><br><span class="line">List&lt;Integer&gt;[] graph;</span><br><span class="line">List&lt;<span class="type">int</span>[]&gt;[] graph;<span class="comment">//带权重</span></span><br><span class="line"><span class="comment">//邻接矩阵</span></span><br><span class="line"><span class="type">boolean</span>[][] matrix;</span><br><span class="line"><span class="type">int</span>[][] matrix; <span class="comment">//带权重</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="度"><a href="#度" class="headerlink" title="度"></a>度</h2><p>对于有向图，每个节点有出度和入度。</p>
-<h2 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h2><p>首先看多叉树的遍历。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> ;</span><br><span class="line">    <span class="keyword">for</span> (TreeNode child : root.children) &#123;</span><br><span class="line">        traverse(child);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-<p>注意，图可能成环，所以要用visit[]数组记录辅助遍历。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">boolean</span>[] visited;</span><br><span class="line"><span class="type">boolean</span>[] path;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(Graph graph, <span class="type">int</span> s)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (visited[s]) <span class="keyword">return</span>;</span><br><span class="line">    visited[s] = <span class="literal">true</span>;</span><br><span class="line">    path[s] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> neighbor : graph.neighbor(s)) &#123;</span><br><span class="line">        traverse(graph, neighbor);</span><br><span class="line">    &#125;</span><br><span class="line">    path[s] = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//path类似回溯算法的做选择和撤销选择，但在for循环外，是包含树根节点的，而回溯是选择子树的过程，看重树枝。</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><pre><code>1. 所有可能路径
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">allPathsSourceTarget</span><span class="params">(<span class="type">int</span>[][] graph)</span> &#123;</span><br><span class="line">    LinkedList&lt;Integer&gt; path = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    traverse(graph, <span class="number">0</span>, path);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(<span class="type">int</span>[][] graph, <span class="type">int</span> s, LinkedList&lt;Integer&gt; path)</span> &#123;</span><br><span class="line">    path.addLast(s);</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> graph.length;</span><br><span class="line">    <span class="keyword">if</span> (s == n-<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">//到达终点</span></span><br><span class="line">        <span class="comment">//需要拷贝path, 不然会全空</span></span><br><span class="line">        res.add(<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;(path));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> v : graph[s]) &#123;</span><br><span class="line">        <span class="comment">//neighbor处理</span></span><br><span class="line">        traverse(graph, v, path);</span><br><span class="line">    &#125;</span><br><span class="line">    path.removeLast();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">LinkedList&lt;LinkedList&lt;Integer&gt;&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="title function_">allPath</span><span class="params">(<span class="type">int</span>[][] graph)</span> &#123;</span><br><span class="line">    LinkedList&lt;Integer&gt; path = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    traverse(graph, <span class="number">0</span> , path);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(<span class="type">int</span>[][] graph, <span class="type">int</span> s , LinkedList&lt;Integer&gt; path)</span> &#123;</span><br><span class="line">    path.addLast(s);</span><br><span class="line">    <span class="keyword">if</span> (s == n - <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">//到达终点</span></span><br><span class="line">        res.add(<span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;(path));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> v : graph[s]) &#123;</span><br><span class="line">        traverse(graph, v, path);</span><br><span class="line">    &#125;</span><br><span class="line">    path.removeLast();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<pre><code>2. 课程表
-</code></pre>
-<p>&#x2F;&#x2F; 判断是否成环</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">boolean</span>[] visited;</span><br><span class="line"><span class="type">boolean</span>[] onPath;</span><br><span class="line"><span class="type">boolean</span> <span class="variable">hasCycle</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">canFinish</span><span class="params">(<span class="type">int</span> numCourses, <span class="type">int</span>[][] prerequisites)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph = buildGraph(numCourses, prerequisites);</span><br><span class="line">    visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[numCourses];</span><br><span class="line">    onPath = <span class="keyword">new</span> <span class="title class_">boolean</span>[numCourses];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; numCourses; i++) &#123;</span><br><span class="line">        traverse(graph, i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> !hasCycle;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">List&lt;Integer&gt;[] buildGraph(<span class="type">int</span> numCourses, <span class="type">int</span>[][] prerequisites) &#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph = <span class="keyword">new</span> <span class="title class_">LinkedList</span>[numCourses];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; numCourses; i++) &#123;</span><br><span class="line">        graph[i] = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] e : prerequistites) &#123;</span><br><span class="line">        <span class="comment">//边处理,[a, b]表示b指向a</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">from</span> <span class="operator">=</span> e[<span class="number">1</span>], to = e[<span class="number">0</span>];</span><br><span class="line">        graph[from].add(to);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> graph;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(List&lt;Integer&gt;[] graph, <span class="type">int</span> s)</span> &#123;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">if</span> (onPath[s]) &#123;</span><br><span class="line">        hasCycle = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (visited[s] || hasCycle) &#123;</span><br><span class="line">       <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    visited[s] = <span class="literal">true</span>;</span><br><span class="line">    onPath[s] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> t :  graph[s]) &#123;</span><br><span class="line">        traverse(graph, t);</span><br><span class="line">    &#125;</span><br><span class="line">    onPath[s] = <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 图是否成环</span></span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span> hasCycle;</span><br><span class="line"><span class="type">boolean</span> visited[];</span><br><span class="line"><span class="type">boolean</span> onPath[];</span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canFinish</span><span class="params">(<span class="type">int</span> numCourses, <span class="type">int</span>[][] v)</span> &#123;</span><br><span class="line">    <span class="comment">//先建立图</span></span><br><span class="line">    List&lt;Integer&gt;[] graph = buildGraph(numCourses, v);</span><br><span class="line">    onPath = <span class="keyword">new</span> <span class="title class_">boolean</span>[numCourses];</span><br><span class="line">    visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[numCourses];</span><br><span class="line">    <span class="comment">//每个顶点逐个遍历</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i : numCourses) &#123;</span><br><span class="line">        traverse(graph, i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> !hasCycle;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    根据顶点数量和边构造图邻接表</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> List&lt;Integer&gt;[] buildGraph(<span class="type">int</span> numCourses, <span class="type">int</span>[][] v) &#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph = <span class="keyword">new</span> <span class="title class_">LinkedList</span>[numCourses];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;numCourses; i++) &#123;</span><br><span class="line">        graph[i] = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] e : v) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">from</span> <span class="operator">=</span> e[<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">to</span> <span class="operator">=</span> e[<span class="number">0</span>];</span><br><span class="line">        graph[from].add(to);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> graph;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据一个顶点遍历图</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(List&lt;Integer&gt;[] graph, <span class="type">int</span> s)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (onPath) &#123;</span><br><span class="line">        <span class="comment">//成环</span></span><br><span class="line">        hasCycle = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (visited || hasCycle) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    visited[s] = <span class="literal">true</span>;</span><br><span class="line">    onPath[s] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i : graph[s]) &#123;</span><br><span class="line">        traverse(graph, i);</span><br><span class="line">    &#125;</span><br><span class="line">    onPath[s] = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="bfs"><a href="#bfs" class="headerlink" title="bfs"></a>bfs</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">bfs</span><span class="params">(Node start, Node target)</span> &#123;</span><br><span class="line">    Set&lt;Node&gt; visited = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">    Queue&lt;Node&gt; q  = <span class="keyword">new</span> <span class="title class_">Queue</span>&lt;Node&gt;();</span><br><span class="line">    q.offer(start);</span><br><span class="line">    visited.add(start);</span><br><span class="line">    <span class="type">int</span> <span class="variable">step</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (q!=<span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">//开始扩散</span></span><br><span class="line">        <span class="type">Node</span> <span class="variable">cur</span> <span class="operator">=</span> q.poll();</span><br><span class="line">        <span class="keyword">if</span> (cur == target) &#123;</span><br><span class="line">            <span class="keyword">return</span> step;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (Node x : cur.adj) &#123;</span><br><span class="line">            <span class="comment">//相邻元素进行扩散，可以是左右子树，也可以是图邻接点</span></span><br><span class="line">            <span class="keyword">if</span> (x not in visited) &#123;</span><br><span class="line">            q.offer(x);</span><br><span class="line">            visited.add(x);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        step++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><p>aov-网（有向无权图），不成环可以进行拓扑排序。<br>（必须先a后b）<br>拓扑序列： 针对边&lt;i, j&gt;, 则序列i必须在j前面。</p>
-<p>可以用bfs, 也可以用dfs.</p>
-<p>dfs版本：<br>&#x2F;&#x2F;后序遍历反过来即为拓扑排序</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collections.reverse(postorder)</span><br></pre></td></tr></table></figure>
-<p>bfs版本<br>&#x2F;&#x2F; 先建表，根据表统计每个顶点的入度，入度为0的入队列。<br>&#x2F;&#x2F; 逐个处理队列，出队并记录，并根据邻接表将邻接点的入度-1（对应拓扑排序中删除顶点和弧。），若入度为0则加入队列。直至队列为空。<br>&#x2F;&#x2F; 出队元素数量是否与顶点数量相同，若相同则没有环，输出顺序即为拓扑排序。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] bfs(<span class="type">int</span> num, <span class="type">int</span>[][] v) &#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph = buildGraph(num, v);</span><br><span class="line">    <span class="comment">// 入度统计</span></span><br><span class="line">    <span class="type">int</span>[] indegree = <span class="keyword">new</span> <span class="title class_">int</span>[num];</span><br><span class="line">    <span class="type">int</span>[] ans = <span class="keyword">new</span> <span class="title class_">int</span>[num];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] e:v) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">from</span> <span class="operator">=</span> e[<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">to</span> <span class="operator">=</span> e[<span class="number">0</span>];</span><br><span class="line">        indegree[to]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//入度为0 的入队列</span></span><br><span class="line">    Queue&lt;Integer&gt; q = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span><span class="number">0</span>; i&lt; num; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (indegree[i] == <span class="number">0</span>) &#123;</span><br><span class="line">            q.offer(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//记录出队数量。</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.isEmpty()) &#123;</span><br><span class="line">        <span class="comment">//删除节点并修改邻接点入度</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">cur</span> <span class="operator">=</span> q.poll();</span><br><span class="line">        ans[count++] = cur;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j : graph[cur]) &#123;</span><br><span class="line">            indegree[j]--;</span><br><span class="line">            <span class="keyword">if</span> (indegree[j] ==<span class="number">0</span>) &#123;</span><br><span class="line">                q.offer(j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (count == num) &#123;</span><br><span class="line">       <span class="keyword">return</span> ans;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> List&lt;Integer&gt;[] buildGraph(<span class="type">int</span> num, <span class="type">int</span>[][] v) &#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph = <span class="keyword">new</span> <span class="title class_">LinkedList</span>[num];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;num; i++) &#123;</span><br><span class="line">        graph[i] = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] e : v) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">from</span> <span class="operator">=</span> e[<span class="number">1</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">to</span> <span class="operator">=</span> e[<span class="number">0</span>];</span><br><span class="line">        graph[from].add(to);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> graph;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="二分图，即图的着色问题"><a href="#二分图，即图的着色问题" class="headerlink" title="二分图，即图的着色问题"></a>二分图，即图的着色问题</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">ok</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="type">boolean</span>[] color;</span><br><span class="line">    <span class="type">boolean</span>[] visited;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isBipartite</span><span class="params">(<span class="type">int</span>[][] graph)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> graph.length;</span><br><span class="line">        color = <span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">        visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[i]) &#123;</span><br><span class="line">                traverse(graph, i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ok;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(<span class="type">int</span>[][] graph, <span class="type">int</span> s)</span> &#123;</span><br><span class="line">        <span class="comment">//结果已确定非二分图,则直接退出</span></span><br><span class="line">        <span class="keyword">if</span> (!ok) <span class="keyword">return</span>;</span><br><span class="line">        visited[s] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> w : graph[s]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!visited[w]) &#123;</span><br><span class="line">                <span class="comment">//未访问过，则需跟s颜色不同,并且继续涂下去</span></span><br><span class="line">                color[w] = !color[s];</span><br><span class="line">                traverse(graph, w);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//已访问过，比较与s颜色是否相同</span></span><br><span class="line">                <span class="keyword">if</span> (color[w] == color[s]) &#123;</span><br><span class="line">                    <span class="comment">//相同则不符合二分图</span></span><br><span class="line">                    ok = <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="uf-并查集"><a href="#uf-并查集" class="headerlink" title="uf 并查集"></a>uf 并查集</h2><p>连通多个点，可让不同根的节点连在一起。</p>
-<p>结构及优化：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UF</span> &#123;</span><br><span class="line">    <span class="comment">//连通</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">union</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> q)</span>;</span><br><span class="line">    <span class="comment">//是否连通</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">connected</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> q)</span>;</span><br><span class="line">    <span class="comment">//连通分量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">count</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">//下标所对应的父节点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] parent;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">UF</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.count = n;</span><br><span class="line">        parent = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt;parent)&#123;</span><br><span class="line">            parent(i) = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UF</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> count;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] parent;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果有权重，可以带size</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] size;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">UF</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.count = n;</span><br><span class="line">        parent = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        size = <span class="keyword">new</span> <span class="title class_">int</span>[];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i : parent) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">            size[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">union</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> q)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootP</span> <span class="operator">=</span> find(p);</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootQ</span> <span class="operator">=</span> find(q);</span><br><span class="line">        <span class="keyword">if</span> (rootP == rootQ) <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//比较size再合并</span></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        if (size(rootP) &gt; size(rootQ)) &#123;</span></span><br><span class="line"><span class="comment">            parent(rootQ) = rootP;</span></span><br><span class="line"><span class="comment">            size(rootP) += size(rootQ);</span></span><br><span class="line"><span class="comment">        &#125; else &#123;</span></span><br><span class="line"><span class="comment">            parent(rootP) = rootQ;</span></span><br><span class="line"><span class="comment">            size(rootQ) += size(rootP);</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        parent(rootP) = rootQ;</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">connect</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> q)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> find(p) == find(q);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">find</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (parent(x) != x) &#123;</span><br><span class="line">            parent(x) = find(parent(x));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parent(x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">count</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span>  count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UF</span> &#123;</span><br><span class="line">    <span class="comment">// 连通分量个数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> count;</span><br><span class="line">    <span class="comment">// 存储每个节点的父节点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span>[] parent;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// n 为图中节点的个数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">UF</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.count = n;</span><br><span class="line">        parent = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            parent[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将节点 p 和节点 q 连通</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">union</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> q)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootP</span> <span class="operator">=</span> find(p);</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootQ</span> <span class="operator">=</span> find(q);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (rootP == rootQ)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        parent[rootQ] = rootP;</span><br><span class="line">        <span class="comment">// 两个连通分量合并成一个连通分量</span></span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断节点 p 和节点 q 是否连通</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">connected</span><span class="params">(<span class="type">int</span> p, <span class="type">int</span> q)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootP</span> <span class="operator">=</span> find(p);</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootQ</span> <span class="operator">=</span> find(q);</span><br><span class="line">        <span class="type">return</span> <span class="variable">rootP</span> <span class="operator">=</span>= rootQ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//路径压缩</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">find</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (parent[x] != x) &#123;</span><br><span class="line">            parent[x] = find(parent[x]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> parent[x];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回图中的连通分量个数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">count</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h2><p>无向图里找不成环且连接所有顶点的树，且权重和最小。</p>
-<pre><code>1. 以图判树
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断输入的若干条边是否能构造出一棵树结构</span></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">validTree</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] edges)</span> &#123;</span><br><span class="line">    <span class="comment">// 初始化 0...n-1 共 n 个节点</span></span><br><span class="line">    <span class="type">UF</span> <span class="variable">uf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UF</span>(n);</span><br><span class="line">    <span class="comment">// 遍历所有边，将组成边的两个节点进行连接</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] edge : edges) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">u</span> <span class="operator">=</span> edge[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">v</span> <span class="operator">=</span> edge[<span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 若两个节点已经在同一连通分量中，会产生环</span></span><br><span class="line">        <span class="keyword">if</span> (uf.connected(u, v)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 这条边不会产生环，可以是树的一部分</span></span><br><span class="line">        uf.union(u, v);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 要保证最后只形成了一棵树，即只有一个连通分量</span></span><br><span class="line">    <span class="keyword">return</span> uf.count() == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UF</span> &#123;</span><br><span class="line">    <span class="comment">// 见上文代码实现</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//默写：</span></span><br><span class="line"><span class="type">boolean</span> <span class="title function_">vaildTree</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] edges)</span> &#123;</span><br><span class="line">    <span class="type">UF</span> <span class="variable">uf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UF</span>(n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span>[] edge : edges) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> edge[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">q</span> <span class="operator">=</span> edge[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (uf.connected(p, q)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        uf.union(p, q);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> uf.count == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UF</span>()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<pre><code>2. kruskal算法
-// 在以图判树的基础上，加上权重和最小（直接用权重排序，贪心）的限制条件。
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Kruskal</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">minimumCost</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span>[][] connections)</span> &#123;</span><br><span class="line">        <span class="comment">//从1到n的点，所以要n+1, 注意0未使用。</span></span><br><span class="line">        <span class="type">UF</span> <span class="variable">uf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UF</span>(n+<span class="number">1</span>);</span><br><span class="line">        Arrays.sort(connections, (a,b) -&gt; (a[<span class="number">2</span>]-b[<span class="number">2</span>]));</span><br><span class="line">        <span class="type">int</span> <span class="variable">mst</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] e: connections) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">p</span> <span class="operator">=</span> e[<span class="number">0</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">q</span> <span class="operator">=</span> e[<span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">weight</span> <span class="operator">=</span> e[<span class="number">2</span>];</span><br><span class="line">            <span class="keyword">if</span> (uf.connected(p, q)) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            uf.union(p, q);</span><br><span class="line">            mst += weight;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> uf.count == <span class="number">2</span> ? mst : -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>   曼哈顿距离</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> points.length;</span><br><span class="line">    <span class="comment">// 生成所有边及权重</span></span><br><span class="line">    List&lt;<span class="type">int</span>[]&gt; edges = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i + <span class="number">1</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">xi</span> <span class="operator">=</span> points[i][<span class="number">0</span>], yi = points[i][<span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">xj</span> <span class="operator">=</span> points[j][<span class="number">0</span>], yj = points[j][<span class="number">1</span>];</span><br><span class="line">            <span class="comment">// 用坐标点在 points 中的索引表示坐标点</span></span><br><span class="line">            edges.add(<span class="keyword">new</span> <span class="title class_">int</span>[] &#123;</span><br><span class="line">                i, j, Math.abs(xi - xj) + Math.abs(yi - yj)</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Collections.sort()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="dijkstra"><a href="#dijkstra" class="headerlink" title="dijkstra"></a>dijkstra</h2><p>bfs求单源最短路径<br>算法签名：<br>int[] dijkstra(int start, List<Integer>[] graph);</p>
-<p>标准的 Dijkstra 算法会把从起点 start 到所有其他节点的最短路径都算出来。<br>比方说，输入起点 start &#x3D; 3，函数返回一个 int[] 数组，假设赋值给 distTo 变量，那么从起点 3 到节点 6 的最短路径权重的值就是 distTo[6]。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/31/%E4%BA%8C%E5%8F%89%E6%A0%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Weitianle">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Learn And Teach">
-      <meta itemprop="description" content="Stay hungry">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Learn And Teach">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/05/31/%E4%BA%8C%E5%8F%89%E6%A0%91/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-05-31 05:20:37" itemprop="dateCreated datePublished" datetime="2022-05-31T05:20:37+08:00">2022-05-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-01 07:56:12" itemprop="dateModified" datetime="2022-06-01T07:56:12+08:00">2022-06-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h2 id="树的结构"><a href="#树的结构" class="headerlink" title="树的结构"></a>树的结构</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> TreeNode &#123;</span><br><span class="line">    TreeNode left;</span><br><span class="line">    TreeNode right;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    TreeNode()&#123;&#125;;</span><br><span class="line">    TreeNode(<span class="type">int</span> val) &#123;</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode(TreeNode left, TreeNode right, <span class="type">int</span> val)&#123;</span><br><span class="line">        <span class="built_in">this</span>.left = left;</span><br><span class="line">        <span class="built_in">this</span>.right = right;</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">//先序</span></span><br><span class="line">    traverse(root.left);</span><br><span class="line">    <span class="comment">//中序</span></span><br><span class="line">    traverse(root.right);</span><br><span class="line">    <span class="comment">//后序</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<pre><code>二叉树的遍历
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">preorderTraverse</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 前序遍历的结果，root.val 在第一个</span></span><br><span class="line">    res.add(root.val);</span><br><span class="line">    <span class="comment">// 利用函数定义，后面接着左子树的前序遍历结果</span></span><br><span class="line">    res.addAll(preorderTraverse(root.left));</span><br><span class="line">    <span class="comment">// 利用函数定义，最后接着右子树的前序遍历结果</span></span><br><span class="line">    res.addAll(preorderTraverse(root.right));</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><pre><code>1. 二叉树的最大深度
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TreeNode</span>&#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    TreeNode left;</span><br><span class="line">    TreeNode right;</span><br><span class="line">    TreeNode()&#123;&#125;</span><br><span class="line">    TreeNode(<span class="type">int</span> val)&#123;</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode(<span class="type">int</span> val, TreeNode left, TreeNode right)&#123;</span><br><span class="line">        <span class="built_in">this</span>.val =val;</span><br><span class="line">        <span class="built_in">this</span>.left = left;</span><br><span class="line">        <span class="built_in">this</span>.right = right</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 深度=左子树/右子树</span></span><br><span class="line"><span class="comment">//递归实现</span></span><br><span class="line"><span class="type">int</span> res;</span><br><span class="line"><span class="type">int</span> <span class="variable">depth</span> <span class="operator">=</span><span class="number">0</span> ;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    traverse(root);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    depth++;</span><br><span class="line">    <span class="keyword">if</span> (root.left == <span class="literal">null</span> &amp;&amp; root.right ==<span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">//到达叶子节点</span></span><br><span class="line">        res = Math.max(res, depth);</span><br><span class="line">    &#125;</span><br><span class="line">    traverse(root.left);</span><br><span class="line">    traverse(root.right);</span><br><span class="line">    depth--;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//分解实现</span></span><br><span class="line"><span class="comment">// 深度=max(left, right) + 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> Math.max(maxDepth(root.left), maxDepth(root.right)) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">2.</span> 二叉树的最大直径</span><br><span class="line"></span><br><span class="line"><span class="comment">//一个节点的最大直径=左最深 + 右最深 +1</span></span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">depth</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">diameterOfBinaryTree</span><span class="params">(TreeNode root)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        maxDepth(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxDepth</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">leftMax</span> <span class="operator">=</span> maxDepth(root.left);</span><br><span class="line">        <span class="type">int</span> <span class="variable">rightMax</span> <span class="operator">=</span> maxDepth(root.right);</span><br><span class="line">        res = Math.max(res, leftMax + rightMax);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span> + Math.max(leftMax, rightMax);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<pre><code>后序遍历是一个自底向上的操作过程，当需要子树信息时可以优先考虑。
-即遇到子树问题，首先想到的是给函数设置返回值，然后在后序位置做文章。
-
-3. 翻转二叉树
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> TreeNode <span class="title function_">invertTree</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    traverse(root);</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="type">TreeNode</span> <span class="variable">temp</span> <span class="operator">=</span> root.left;</span><br><span class="line">    root.left = root.right;</span><br><span class="line">    root.right = temp;</span><br><span class="line">    traverse(root.left);</span><br><span class="line">    traverse(root.right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 分解做法</span></span><br><span class="line"><span class="keyword">public</span> TreeNode <span class="title function_">invertTree</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="type">TreeNode</span> <span class="variable">right</span> <span class="operator">=</span> invertTree(root.left);</span><br><span class="line">    <span class="type">TreeNode</span> <span class="variable">left</span> <span class="operator">=</span> inverTree(root.right);</span><br><span class="line">    root.left = right;</span><br><span class="line">    root.right = left;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>二叉树解题的思维模式分两类：</p>
-<p>1、是否可以通过遍历一遍二叉树得到答案？如果可以，用一个 traverse 函数配合外部变量来实现，这叫「遍历」的思维模式。</p>
-<p>2、是否可以定义一个递归函数，通过子问题（子树）的答案推导出原问题的答案？如果可以，写出这个递归函数的定义，并充分利用这个函数的返回值，这叫「分解问题」的思维模式。</p>
-<p>无论使用哪种思维模式，你都需要思考：</p>
-<p>如果单独抽出一个二叉树节点，它需要做什么事情？需要在什么时候（前&#x2F;中&#x2F;后序位置）做？其他的节点不用你操心，递归函数会帮你在所有节点上执行相同的操作。</p>
-<pre><code>4. 给前序和中序，构造二叉树。
-TreeNode buildTree(int[] preorder, int[] inorder)&#123;&#125;;
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不含重复元素的</span></span><br><span class="line">    <span class="keyword">public</span> TreeNode <span class="title function_">buildTree</span><span class="params">(<span class="type">int</span>[] preorder, <span class="type">int</span>[] inorder)</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; inorder.length; i++) &#123;</span><br><span class="line">          valToIndex.put(inorder[i], i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> build(preorder, <span class="number">0</span>, preorder.length - <span class="number">1</span>,</span><br><span class="line">                    inorder, <span class="number">0</span>, inorder.length-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode <span class="title function_">build</span><span class="params">(<span class="type">int</span>[] preorder, <span class="type">int</span> preStart, <span class="type">int</span> preEnd,  <span class="type">int</span>[] inorder, <span class="type">int</span> inStart, <span class="type">int</span> inEnd)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (preStart &gt; preEnd) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">rootVal</span> <span class="operator">=</span> preorder[preStart];</span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> valToIndex.get(rootVal);</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">leftSize</span> <span class="operator">=</span> index - inStart;</span><br><span class="line">        <span class="type">TreeNode</span> <span class="variable">left</span> <span class="operator">=</span> build(preorder, preStart+<span class="number">1</span>, preStart + leftSize, inorder, inStart, index-<span class="number">1</span>);</span><br><span class="line">        <span class="type">TreeNode</span> <span class="variable">right</span> <span class="operator">=</span> build(preorder, preStart + leftSize + <span class="number">1</span>, preEnd, inorder, index + <span class="number">1</span>, inEnd);</span><br><span class="line"></span><br><span class="line">        <span class="type">TreeNode</span> <span class="variable">root</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TreeNode</span>(rootVal, left, right);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<pre><code>5. 层序遍历
-</code></pre>
-<pre><code class="java">void levelTraverse(TreeNode root) &#123;
-    if (root == null) return ;
-    Queue&lt;TreeNode&gt; q = new LinkedList&lt;&gt;();
-    q.offer(root);
-    while (!q.isEmpty()) &#123;
-        int size = q.size;
-        for (int i=0; i&lt;size; i++) &#123;
-            TreeNode cur = q.poll();
-            //处理节点
-            if (cur.left != null) q.offer(cur.left);
-            if (cur.right != null) q.offer(cur.right);
-        &#125;
-
-    &#125;
-&#125;
-
-</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/30/#%20%E7%AE%97%E6%B3%95-%E9%93%BE%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Weitianle">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Learn And Teach">
-      <meta itemprop="description" content="Stay hungry">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Learn And Teach">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/05/30/#%20%E7%AE%97%E6%B3%95-%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-05-30 17:46:01" itemprop="dateCreated datePublished" datetime="2022-05-30T17:46:01+08:00">2022-05-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-31 05:20:10" itemprop="dateModified" datetime="2022-05-31T05:20:10+08:00">2022-05-31</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="算法-链表"><a href="#算法-链表" class="headerlink" title="算法-链表"></a>算法-链表</h1><h2 id="1-链表基础"><a href="#1-链表基础" class="headerlink" title="1. 链表基础"></a>1. 链表基础</h2>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ListNode</span> &#123;</span><br><span class="line">    ListNode next;</span><br><span class="line">    <span class="type">int</span> <span class="variable">val</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    ListNode();</span><br><span class="line">    ListNode(<span class="type">int</span> val) &#123;</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">    &#125;;</span><br><span class="line">    ListNode(<span class="type">int</span> val, ListNode next) &#123;</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">        <span class="built_in">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<pre><code>一个val存值，一个next存指向下一个节点的地址。
-结构特点： 遍历查询，一环扣一环。
-</code></pre>
-<h2 id="2-常见题目"><a href="#2-常见题目" class="headerlink" title="2. 常见题目"></a>2. 常见题目</h2><pre><code>1. 两个有序链表合并
-2. 多个有序链表合并
-3. 链表是否成环判断
-4. 链表成环入口
-5. 链表中点
-6. 删除链表倒数第k个节点
-7. 两个链表是否有公共节点
-8. 链表翻转
-9. ###复制带随机指针的链表（未做过）
-</code></pre>
-<h2 id="3-题目解法"><a href="#3-题目解法" class="headerlink" title="3.题目解法"></a>3.题目解法</h2><h3 id="1-合并两个升序链表（）"><a href="#1-合并两个升序链表（）" class="headerlink" title="1.合并两个升序链表（）"></a>1.合并两个升序链表（）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//是否需要写链表ListNode结构</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ListNode</span>&#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    ListNode next;</span><br><span class="line">    ListNode()&#123;&#125;;</span><br><span class="line">    ListNode(<span class="type">int</span> val) &#123;</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode(<span class="type">int</span> val, ListNode next) &#123;</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">        <span class="built_in">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*分析情况</span></span><br><span class="line"><span class="comment">    当l1全部小于l2, </span></span><br><span class="line"><span class="comment">    当l1部分小于l2部分</span></span><br><span class="line"><span class="comment">    解决办法：两个指针分别遍历，比较指针值，小的先进入，然后小的指针前进一步，直至其中一个指针指向null.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//链表是有序的，两个指针逐个比较大小放入新链表。</span></span><br><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span>&#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">head</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListNode</span>();</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">p</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="keyword">while</span> (l1 != <span class="literal">null</span> &amp;&amp; l2 != <span class="literal">null</span> ) &#123;</span><br><span class="line">        <span class="keyword">if</span> (l1.val &lt; l2.val) &#123;</span><br><span class="line">            p.next = l1;</span><br><span class="line">            p = p.next;</span><br><span class="line">            l1 = l1.next;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            p.next = l2;</span><br><span class="line">            p = p.next;</span><br><span class="line">            l2 = l2.next;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    p.next = l1 == <span class="literal">null</span> ? l2 : l1;</span><br><span class="line">    <span class="keyword">return</span> head.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<pre><code>总结： 1. 虚拟头节点用来返回。
-2. 不要忘记都要往前走一步
-3. 循环条件 是 while (l1! = null)
-4. 时间复杂度分析：
-    l1走完+l2走完 , 所以是O(M+N)
-</code></pre>
-<h3 id="2-多个有序链表合并"><a href="#2-多个有序链表合并" class="headerlink" title="2. 多个有序链表合并"></a>2. 多个有序链表合并</h3><pre><code>1. 解法1，利用优先队列每次挑最小的加入。
-2. 解法2，分治合并
-
-解法1:
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ListNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    ListNode next;</span><br><span class="line">    ListNode()&#123;&#125;;</span><br><span class="line">    ListNode(<span class="type">int</span> val) &#123;</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">    ListNode(ListNode next, <span class="type">int</span> val) &#123;</span><br><span class="line">        <span class="built_in">this</span>.next = next;</span><br><span class="line">        <span class="built_in">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">mergeKLists</span><span class="params">(ListNode[] lists)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (lists.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">head</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListNode</span>(-<span class="number">1</span>);</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">p</span> <span class="operator">=</span> head;</span><br><span class="line">    PriorityQueue&lt;ListNode&gt; pq = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;(lists.length, (a, b) -&gt; (a.val - b.val));</span><br><span class="line">    <span class="keyword">for</span> (ListNode q : lists) &#123;</span><br><span class="line">        <span class="keyword">if</span> (q != <span class="literal">null</span>) pq.add(q);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (!pq.isEmpty() ) &#123;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">node</span> <span class="operator">=</span> pq.poll();</span><br><span class="line">        p.next = node;</span><br><span class="line">        <span class="keyword">if</span> (node.next != <span class="literal">null</span>) &#123;</span><br><span class="line">            pq.add(node.next);</span><br><span class="line">        &#125;</span><br><span class="line">        p = p.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<pre><code>1. 时间复杂度分析：新建pq, k; pq新增和删除, nlog(k); 所以最后是O(N *log k) ，n表示节点总数，k条链表。
-
-
-
-
-
-解法2:
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ListNode</span> &#123;</span><br><span class="line">        <span class="type">int</span> val;</span><br><span class="line">        ListNode next;</span><br><span class="line">        ListNode()&#123;&#125;;</span><br><span class="line">        ListNode(<span class="type">int</span> val) &#123;</span><br><span class="line">            <span class="built_in">this</span>.val = val;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode(<span class="type">int</span> val, ListNode next) &#123;</span><br><span class="line">            <span class="built_in">this</span>.val = val;</span><br><span class="line">            <span class="built_in">this</span>.next = next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">mergeMoreLists</span><span class="params">(ListNode[] lists)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (lists.length == <span class="number">0</span> ) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">int</span> l, r;</span><br><span class="line">        l = <span class="number">0</span>; r = lists.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> mergeLists(lists, l , r);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">mergeLists</span><span class="params">(ListNode[] lists, <span class="type">int</span> l, <span class="type">int</span> r)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (r&gt;l) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> (l+r)/<span class="number">2</span>;</span><br><span class="line">                mergeTwoLists(mergeLists(lists, l, mid), mergeLists(lists, mid+<span class="number">1</span> ,r));</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (l == r)&#123;</span><br><span class="line">                <span class="keyword">return</span> lists[l];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">     </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span>&#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">head</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListNode</span>();</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">p</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="keyword">while</span> (l1 != <span class="literal">null</span> &amp;&amp; l2 != <span class="literal">null</span> ) &#123;</span><br><span class="line">        <span class="keyword">if</span> (l1.val &lt; l2.val) &#123;</span><br><span class="line">            p.next = l1;</span><br><span class="line">            p = p.next;</span><br><span class="line">            l1 = l1.next;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            p.next = l2;</span><br><span class="line">            p = p.next;</span><br><span class="line">            l2 = l2.next;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    p.next = l1 == <span class="literal">null</span> ? l2 : l1;</span><br><span class="line">    <span class="keyword">return</span> head.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<pre><code>1. 分治法，两两进行合成。
-2. 时间复杂度：
-    kn*log(k), n为最长链表的长度, k条链表。
-</code></pre>
-<h3 id="3-单条链表的倒数第k个节点"><a href="#3-单条链表的倒数第k个节点" class="headerlink" title="3. 单条链表的倒数第k个节点"></a>3. 单条链表的倒数第k个节点</h3><pre><code>1. 先让a顺着走k步，再让b从头走。a走到末尾时b到达倒数第k个。
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ListNode</span> &#123;</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    ListNode next;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">getRKNode</span><span class="params">(ListNode head, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="comment">//边界k处理</span></span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">l1</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i&lt;k; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (l1!= <span class="literal">null</span>);</span><br><span class="line">        l1 = l1.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">l2</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="keyword">while</span> (l1!=<span class="literal">null</span>) [</span><br><span class="line">        l1 = l1.next;</span><br><span class="line">        l2 = l2.next;</span><br><span class="line">    ]</span><br><span class="line">    <span class="keyword">return</span> l2; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 要 n - k + 1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<pre><code>删除倒数第k个，先找到倒数第k+1个。
-注意头节点。
-
-3. 链表是否成环
-
-    1. 快慢指针法，如果成环则会相遇。否则快指针会先到null.
-</code></pre>
-<pre><code class="java">        public class ListNode &#123;
-            int val;
-            ListNode next;
-        &#125;
-        public boolean hasCycle(ListNode head) &#123;
-            if (head == null) return false;
-            ListNode fast = head;
-            ListNode slow = head;
-            while (fast!=null &amp;&amp; fast.next !=null) &#123;
-                fast = fast.next.next;
-                slow = slow.next;
-                if (slow == fast) return true;
-
-            &#125;
-            return false;
-        &#125; 
-</code></pre>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
       
     </div>
