@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -152,6 +152,103 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/12/juc-charpter4-foundation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weitianle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn And Teach">
+      <meta itemprop="description" content="Stay hungry">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Learn And Teach">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/12/juc-charpter4-foundation/" class="post-title-link" itemprop="url">juc-charpter4-foundation</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-12 10:10:36 / 修改时间：11:32:43" itemprop="dateCreated datePublished" datetime="2022-07-12T10:10:36+08:00">2022-07-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="java并发编程基础"><a href="#java并发编程基础" class="headerlink" title="java并发编程基础"></a>java并发编程基础</h1><h4 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h4><p>现代os调度的最小单元，也叫轻量级进程。有自己的空间，能够访问共享内存变量。多线程可以利用更多的处理器核心、更快响应、更好的编程模型。</p>
+<h5 id="线程优先级不作为程序正确性的依赖。（-没啥用）"><a href="#线程优先级不作为程序正确性的依赖。（-没啥用）" class="headerlink" title="线程优先级不作为程序正确性的依赖。（ 没啥用）"></a>线程优先级不作为程序正确性的依赖。（ 没啥用）</h5><h4 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h4><ul>
+<li>NEW</li>
+<li>WAITING</li>
+<li>TIME_WAITING</li>
+<li>RUNNING</li>
+<li>BLOCKED</li>
+<li>TERMINATE</li>
+</ul>
+<h5 id="DAEMON线程"><a href="#DAEMON线程" class="headerlink" title="DAEMON线程"></a>DAEMON线程</h5><p>守护线程，守护的线程结束就结束，用来后台调度。当只有daemon线程工作时，jvm会退出。</p>
+<h5 id="启动与终止"><a href="#启动与终止" class="headerlink" title="启动与终止"></a>启动与终止</h5><p>start启动，run执行，interrupt中断或修改布尔标志终止。</p>
+<h5 id="线程间通信"><a href="#线程间通信" class="headerlink" title="线程间通信"></a>线程间通信</h5><p>volatile 和 stnchronized锁。</p>
+<h5 id="等待-x2F-通知机制"><a href="#等待-x2F-通知机制" class="headerlink" title="等待&#x2F;通知机制"></a>等待&#x2F;通知机制</h5><ul>
+<li>notify() 通知一个在等待的线程，使其从wait()返回。前提是拿到了锁。</li>
+<li>notifyAll() 通知所有等待在该对象上的线程，从等待队列迁移到同步队列。</li>
+<li>wait()  线程将进入waiting状态，释放对象锁。等待被通知。wait(long, int) wait(long)</li>
+</ul>
+<h4 id="等待-x2F-通知-经典范式"><a href="#等待-x2F-通知-经典范式" class="headerlink" title="等待&#x2F;通知 经典范式"></a>等待&#x2F;通知 经典范式</h4><p>1)获取对象的锁</p>
+<p>2）拿不到锁。则wait（），被通知后回到1）</p>
+<ol start="3">
+<li>拿到锁则执行。</li>
+</ol>
+<h5 id="thread-join"><a href="#thread-join" class="headerlink" title="thread.join()"></a>thread.join()</h5><p>A run(): {</p>
+<p>B.join()</p>
+<p>}</p>
+<p>B线程从A的执行过程中插入，A要等B执行完回来才继续往下走。可设置超时时间。</p>
+<h5 id="threadLocal"><a href="#threadLocal" class="headerlink" title="threadLocal"></a>threadLocal</h5><p>(k,v)结构–&gt;(threadlocal, T) 附带在线程上私有的值。</p>
+<p>对v可能存在k为null被回收，但v不为null不被回收的情况。解决：1.k为null的时候设v为null；2.ThreadLocal.remove()。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1394,109 +1491,6 @@ TreeNode buildTree(int[] preorder, int[] inorder)&#123;&#125;;
 <p>锁住资源再更新。</p>
 </li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/30/juc-charpter1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Weitianle">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Learn And Teach">
-      <meta itemprop="description" content="Stay hungry">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Learn And Teach">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/30/juc-charpter1/" class="post-title-link" itemprop="url">java concurrency charpter one</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-06-30 10:42:02 / 修改时间：15:09:05" itemprop="dateCreated datePublished" datetime="2022-06-30T10:42:02+08:00">2022-06-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Java并发编程笔记（一）"><a href="#Java并发编程笔记（一）" class="headerlink" title="Java并发编程笔记（一）"></a>Java并发编程笔记（一）</h1><p>并发编程是为了更快，但有些时候并发不比串行快。</p>
-<p>理解并发，就要优先对比串行和并发的差异。</p>
-<h3 id="1-上下文切换"><a href="#1-上下文切换" class="headerlink" title="1.上下文切换"></a>1.上下文切换</h3><p>单核也有多线程并发，cpu分配非常短的时间片（几十ms）给每个线程，每个线程执行完就要切，所以会频繁地切换。任务从被保存到再次被加载的过程，就叫上下文切换。对于java来说，每次线程从waiting到runnable都会进行一次上下文切换。</p>
-<h4 id="如何减少上下文切换？"><a href="#如何减少上下文切换？" class="headerlink" title="如何减少上下文切换？"></a>如何减少上下文切换？</h4><ul>
-<li>无锁并发编程，多线程竞争锁的话也会上下文切换</li>
-<li>cas算法</li>
-<li>使用最少线程，避免大量线程处于waiting状态</li>
-<li>协程，单线程里的多任务调度。</li>
-</ul>
-<h4 id="查看线程状态相关步骤："><a href="#查看线程状态相关步骤：" class="headerlink" title="查看线程状态相关步骤："></a>查看线程状态相关步骤：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jstack [pid号] &gt; dump20 //用于dump线程信息</span><br><span class="line">grep //统计线程具体状态数</span><br><span class="line">打开dump文件查看线程在做什么</span><br><span class="line">修改线程池配置：JBOSS</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-死锁"><a href="#2-死锁" class="headerlink" title="2. 死锁"></a>2. 死锁</h3><p>范例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">thread1 = <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>()&#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span>(A) &#123;</span><br><span class="line">      <span class="keyword">synchronized</span>(B);</span><br><span class="line">    &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line">thread2 = <span class="keyword">new</span> <span class="title class_">Thread</span>(<span class="keyword">new</span> <span class="title class_">Runnable</span>()&#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span>(B) &#123;</span><br><span class="line">      <span class="keyword">synchronized</span>(A);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h4 id="常用避免方法："><a href="#常用避免方法：" class="headerlink" title="常用避免方法："></a>常用避免方法：</h4><ul>
-<li>避免一个线程获取多个锁</li>
-<li>避免一个线程在锁内同时占用多个资源</li>
-<li>尝试使用定时锁，lock.tryLock(timeout) 来代替内部锁</li>
-<li>对于数据库锁，加锁和解锁操作在同一个连接中</li>
-</ul>
-<h4 id="资源限制"><a href="#资源限制" class="headerlink" title="资源限制"></a>资源限制</h4><ul>
-<li><p>硬件限制：带宽速度、硬盘读写速度、cpu处理速度</p>
-</li>
-<li><p>软件限制：数据库连接数、socket连接数</p>
-</li>
-<li><p>解决：</p>
-<ul>
-<li>硬件层面：加机器：集群</li>
-<li>软件层面：连接池复用</li>
-<li>根据软硬件限制动态调整并发度</li>
-</ul>
-</li>
-</ul>
-<p>作者建议：多使用jdk并发包中的容器和工具类</p>
 
       
     </div>
