@@ -118,12 +118,12 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -152,6 +152,289 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/30/kafka-producer-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weitianle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn And Teach">
+      <meta itemprop="description" content="Stay hungry">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Learn And Teach">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/30/kafka-producer-02/" class="post-title-link" itemprop="url">kafka-producer-02</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-30 10:35:19 / 修改时间：10:39:38" itemprop="dateCreated datePublished" datetime="2022-07-30T10:35:19+08:00">2022-07-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/30/kafka-introdution/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weitianle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn And Teach">
+      <meta itemprop="description" content="Stay hungry">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Learn And Teach">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/30/kafka-introdution/" class="post-title-link" itemprop="url">kafka-introdution</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-30 09:27:08 / 修改时间：10:36:55" itemprop="dateCreated datePublished" datetime="2022-07-30T09:27:08+08:00">2022-07-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="kafka是什么？"><a href="#kafka是什么？" class="headerlink" title="kafka是什么？"></a>kafka是什么？</h1><p>多分区、多副本且基于ZooKeeper的分布式消息系统。</p>
+<p>角色：</p>
+<ol>
+<li><p>消息系统   可以保证消息顺序性和回溯消费的消息系统</p>
+</li>
+<li><p>存储系统      消息持久化到磁盘</p>
+</li>
+<li><p>流式处理平台</p>
+</li>
+</ol>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>基本结构：	producer -&gt; Broker -&gt; consumer，元数据存储在ZooKeeper集群。</p>
+<h4 id="主题-topic"><a href="#主题-topic" class="headerlink" title="主题 topic"></a>主题 topic</h4><p>​	生产者指定发送、消费者订阅消费。</p>
+<h4 id="分区-partition"><a href="#分区-partition" class="headerlink" title="分区 partition"></a>分区 partition</h4><ol>
+<li><p>一个分区只属于单个主题</p>
+</li>
+<li><p>同一个主题下的不同分区包含的消息不同</p>
+</li>
+<li><p>分区存储层面上类似可追加的日志，用偏移量保证分区内的顺序性（分区有序而不是主题有序）</p>
+</li>
+<li><p>分区可以分布在不同的broker上，即一个主题可以横跨多个broker.</p>
+</li>
+<li><p>多副本机制，只有leader副本负责交互，follower副本负责同步。</p>
+<ol>
+<li><p>同步机制：leader维护两个参数HW 和 LEO ,</p>
+<p>HW高水位表示当前消费者可消费的（n+1）位置(全部副本同步完成)，LEO表示最新消息（n+1）位置（可能follower未同步完成）。</p>
+</li>
+<li><p>概念： ISR(In-Sync Replicas) 表示已同步完成的，OSR表示未同步完成的。AR&#x3D;ISR + OSR</p>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="安装与启动"><a href="#安装与启动" class="headerlink" title="安装与启动"></a>安装与启动</h4><p>先启动ZooKeeper, 再启动kafka.</p>
+<h4 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h4><p>服务端参数配置</p>
+<p>生产者：配置参数——&gt;创建生产者客户端实例——&gt;构建消息——&gt;发送 ——&gt;关闭客户端</p>
+<p>消费者：配置参数——&gt;设置消费组名称——&gt; 创建消费者客户端实例——&gt;订阅主题——&gt; 循环消费消息</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/30/kafka-producer-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Weitianle">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Learn And Teach">
+      <meta itemprop="description" content="Stay hungry">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Learn And Teach">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/30/kafka-producer-01/" class="post-title-link" itemprop="url">kafka-producer-01</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-30 09:26:06 / 修改时间：10:34:47" itemprop="dateCreated datePublished" datetime="2022-07-30T09:26:06+08:00">2022-07-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Kafka-Producer-基本步骤"><a href="#Kafka-Producer-基本步骤" class="headerlink" title="Kafka Producer 基本步骤"></a>Kafka Producer 基本步骤</h1><h2 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h2><p>生产者：配置参数——&gt;创建生产者客户端实例——&gt;构建消息——&gt;发送消息 ——&gt;关闭客户端</p>
+<h3 id="配置参数Properties"><a href="#配置参数Properties" class="headerlink" title="配置参数Properties"></a>配置参数Properties</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Properties props = new Properties();</span><br><span class="line">props.put(key, value);</span><br></pre></td></tr></table></figure>
+
+<p>必填：</p>
+<ol>
+<li><p>bootstrap.servers  host1:port1,host2:port2</p>
+<p>指定Kafka集群所需的broker清单</p>
+</li>
+<li><p>key.serializer value.serializer</p>
+<p>broker只接收字节数组byte[], 需要指定序列化器来转换。</p>
+</li>
+</ol>
+<p>参数值一般都有静态字符串常量，否则用反射。</p>
+<h3 id="创建生产者客户端实例"><a href="#创建生产者客户端实例" class="headerlink" title="创建生产者客户端实例"></a>创建生产者客户端实例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">KafkaProducer&lt;String, String&gt; producer = new KafkaProducer&lt;&gt;(props);</span><br></pre></td></tr></table></figure>
+
+<p>线程安全的，可以池化。</p>
+<h3 id="构建消息"><a href="#构建消息" class="headerlink" title="构建消息"></a>构建消息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ProducerRecord&lt;String, String&gt; record = new ProducerRecord&lt;&gt;(topic, &quot;Hello, Kafka&quot;);</span><br><span class="line">//构造方法如下，参数可选。topic和value必填。</span><br><span class="line">public ProducerRecord(String topic, Integer partition, Long timestamp, K key, V value, Iterable&lt;Header&gt; headers)&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>构建消息是非常频繁的动作。</p>
+<h3 id="发送消息"><a href="#发送消息" class="headerlink" title="发送消息"></a>发送消息</h3><p>方法：在try {} catch (Exception e) {}中使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public Future&lt;RecordMetadata&gt; send(ProducerRecord&lt;K, V&gt; record) </span><br><span class="line"></span><br><span class="line">public Future&lt;RecordMetadata&gt; send(ProducerRecord&lt;K, V&gt; record, Callback callback)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>方式：</p>
+<ol>
+<li><p>发后即忘 (fire-and-forger), 不管返回结果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">producer.send(record);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>同步，利用Future</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//future.get()等待kafka的响应</span><br><span class="line">producer.send(record).get();</span><br><span class="line">//获取元数据</span><br><span class="line">Future future = producer.send(record);</span><br><span class="line">RecordMetadata metadata = future.get();</span><br></pre></td></tr></table></figure>
+
+<p>要阻塞，发完一条才能下一条。</p>
+</li>
+<li><p>异步</p>
+<p>kafka一响应就回调，不用处理get()调用。要么成功，要么异常。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">producer.send(record, new Callback()) &#123;</span><br><span class="line">	@Override</span><br><span class="line">	public void onCompletion(RecordMetadata metadata, Exception e) &#123;</span><br><span class="line">		if (e != null) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			deal(metadata);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="关闭客户端"><a href="#关闭客户端" class="headerlink" title="关闭客户端"></a>关闭客户端</h3><p>阻塞所有发送请求完成后再关闭</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">producer.close();</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -191,7 +474,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-12 10:10:36 / 修改时间：11:32:43" itemprop="dateCreated datePublished" datetime="2022-07-12T10:10:36+08:00">2022-07-12</time>
+      <time title="创建时间：2022-07-12 10:10:36 / 修改时间：11:33:02" itemprop="dateCreated datePublished" datetime="2022-07-12T10:10:36+08:00">2022-07-12</time>
     </span>
 
   
@@ -971,546 +1254,8 @@ TreeNode buildTree(int[] preorder, int[] inorder)&#123;&#125;;
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/11/juc-charpter3-02/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Weitianle">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Learn And Teach">
-      <meta itemprop="description" content="Stay hungry">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Learn And Teach">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/11/juc-charpter3-02/" class="post-title-link" itemprop="url">juc-charpter3-02</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-07-11 11:11:16 / 修改时间：14:23:04" itemprop="dateCreated datePublished" datetime="2022-07-11T11:11:16+08:00">2022-07-11</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="juc-charpter3-02"><a href="#juc-charpter3-02" class="headerlink" title="juc-charpter3-02"></a>juc-charpter3-02</h1><h4 id="final-域的内存语义"><a href="#final-域的内存语义" class="headerlink" title="final 域的内存语义"></a>final 域的内存语义</h4><p>重排序规则：</p>
-<ul>
-<li>写：写final和引用赋值不能重排序。<ul>
-<li>实现：禁止final重排序到构造函数之外。在写后插入storestore屏障，再接构造函数的return。</li>
-</ul>
-</li>
-<li>读：初次读包含final的引用和读final，不能重排序。<ul>
-<li>确保先读引用，再读final。final读前插入loadload操作。</li>
-</ul>
-</li>
-</ul>
-<h4 id="happens-before"><a href="#happens-before" class="headerlink" title="happens-before"></a>happens-before</h4><p>定义：A 的结果对B可见，程序中的执行顺序A先于B（实际不一定），则说Ahappens-before B。</p>
-<ul>
-<li><p>程序顺序</p>
-</li>
-<li><p>监视器锁</p>
-</li>
-<li><p>volatile</p>
-</li>
-<li><p>传递性</p>
-</li>
-<li><p>start</p>
-</li>
-<li><p>join</p>
-</li>
-</ul>
-<h4 id="双重检查锁定"><a href="#双重检查锁定" class="headerlink" title="双重检查锁定"></a>双重检查锁定</h4><p>为了推迟一些高开销的对象初始化操作，并且只有在使用时才进行初始化。此时采用延迟初始化。</p>
-<p>错误示范：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UnsafeLazyInitialization</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> Instance instance;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Instance <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="literal">null</span> ) instance = <span class="keyword">new</span> <span class="title class_">Instance</span>();</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>A线程在new 这一步时，B也getInstance,此时虽然不为null, 但是还没初始化完成，B获得了一个未完成初始化的实例。</p>
-<p>why? 因为对象创建分为以下三步：</p>
-<ul>
-<li>分配内存空间</li>
-<li>初始化</li>
-<li>将引用变量指向对象地址</li>
-</ul>
-<p>其中 初始化和 引用指向地址可能会发生重排序，当先赋值引用时，此时拿到的对象实例并没有完成初始化。</p>
-<p>那要怎么解决呢？</p>
-<ul>
-<li>防止上面的重排序</li>
-<li>重排序可以，但是要做完，不让别的线程看到中间过程。</li>
-</ul>
-<p>为防止重排序，可用volatile和sychronized结合。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SafeDoubeCheckedLocking</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Instance instance;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Instance <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">      sychronized(SafeDoubeCheckedLocking.class) &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">          instance = <span class="keyword">new</span> <span class="title class_">Instance</span>();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>适用于对<strong>实例字段</strong>和<strong>静态字段</strong>的线程安全延迟初始化，优选<strong>实例字段</strong>。</p>
-<p>如果允许重排序，则必须保证重排序的两个操作都执行完，再让其他线程看到。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InstanceFactory</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">InstanceHolder</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">Instance</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Instance</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">public</span> staic Instance <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> InstanceHolder.instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>此方法利用类的初始化会获取锁的机制，完成对类的初始化。此方法简短，适用于对<strong>静态字段</strong>的线程安全延迟初始化。</p>
-<p>该过程可以理解为先拿到锁的线程A，会修改状态标记，然后释放锁再初始化，初始化完成后再拿锁修改状态标记为已完成初始化，再释放锁。其他线程拿到锁也要判断状态标记，如果已经在初始化了或初始化完成了，释放掉锁。</p>
-<p>线程A初始化过程中都要两次加锁解锁，初始化完成后其他线程再来就只要拿一次锁判定状态了。</p>
-<p>（此处疑问？类的加载、初始化，不是在最开始就执行了吗？为什么要等到多线程来调用才会进行初始化？）</p>
-<p>（答案：除了被jvm指定的启动类，其他都是用的时候再开始初始化。包括：</p>
-<p>1、创建类的实例,也就是new一个对象<br>2、访问某个类或者接口的静态变量,或者对该静态变量赋值<br>3、调用类的静态方法<br>4、反射(Class.forName(MyClass.class))<br>5、初始化一个类的子类(初始化子类时,会优先初始化父类)<br>6、JVM启动时表明的启动类,即<strong>文件名</strong>和<strong>类名</strong>相同的那个类）</p>
-<h4 id="juc-charpter3-JMM总结"><a href="#juc-charpter3-JMM总结" class="headerlink" title="juc-charpter3-JMM总结"></a>juc-charpter3-JMM总结</h4><p>JMM定义了Java 虚拟机(JVM)在计算机内存(RAM)中的工作方式。</p>
-<p>JMM内存模型和处理器内存模型都会参考顺序一致性内存模型，但都会放松限制。</p>
-<p>JMM基于不同处理器内存模型插入不同的内存屏障指令，所以不同处理器平台展示给程序员的会是一致的内存模型。</p>
-<p>JMM内存模型保证以下可见性：</p>
-<ul>
-<li>单线程程序</li>
-<li>正确同步的多线程程序，保证结果跟顺序一致性内存模型的执行结果一致。</li>
-<li>未正确同步的多线程程序，JMM会提供最小安全性保障。线程会读到之前写过的值，或者默认值0、null、false。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/08/juc-charpter3-01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Weitianle">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Learn And Teach">
-      <meta itemprop="description" content="Stay hungry">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Learn And Teach">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/08/juc-charpter3-01/" class="post-title-link" itemprop="url">juc-charpter-three-01</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-07-08 16:27:51" itemprop="dateCreated datePublished" datetime="2022-07-08T16:27:51+08:00">2022-07-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-10 21:15:20" itemprop="dateModified" datetime="2022-07-10T21:15:20+08:00">2022-07-10</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Java-内存模型"><a href="#Java-内存模型" class="headerlink" title="Java 内存模型"></a>Java 内存模型</h1><h3 id="1-1-并发编程模型的两个关键问题"><a href="#1-1-并发编程模型的两个关键问题" class="headerlink" title="1.1 并发编程模型的两个关键问题"></a>1.1 并发编程模型的两个关键问题</h3><ul>
-<li>线程间如何通信？</li>
-<li>线程之间如何同步？</li>
-</ul>
-<p>通信：共享内存（主内存中写-读内存的公共状态）或者消息传递（显式）</p>
-<p>同步：线程之间操作发生相对顺序的机制。共享内存方式下是显式指定顺序，消息传递是隐式。</p>
-<p>Java采用共享内存模型，隐式通信。</p>
-<h3 id="1-2-Java内存模型的抽象结构"><a href="#1-2-Java内存模型的抽象结构" class="headerlink" title="1.2 Java内存模型的抽象结构"></a>1.2 Java内存模型的抽象结构</h3><h4 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h4><p>堆内存：实例域、静态域和数组元素，线程之间共享。</p>
-<p>局部变量、方法定义参数、异常处理器参数不会在线程之间共享，所以没有内存可见性问题。</p>
-<h5 id="（JMM）-java-内存模型控制java线程之间的通信，线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线程以读-x2F-写变量的副本，本地内存并不真实存在，抽象概念。"><a href="#（JMM）-java-内存模型控制java线程之间的通信，线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线程以读-x2F-写变量的副本，本地内存并不真实存在，抽象概念。" class="headerlink" title="（JMM） java 内存模型控制java线程之间的通信，线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线程以读&#x2F;写变量的副本，本地内存并不真实存在，抽象概念。"></a>（JMM） java 内存模型控制java线程之间的通信，线程之间的共享变量存储在主内存中，每个线程都有一个私有的本地内存，本地内存中存储了该线程以读&#x2F;写变量的副本，本地内存并不真实存在，抽象概念。</h5><h4 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h4><p> 从A本地内存到主内存，再到B本地内存的过程，可以称为通信。</p>
-<h4 id="重排序：提升效率"><a href="#重排序：提升效率" class="headerlink" title="重排序：提升效率"></a>重排序：提升效率</h4><p>​	1）编译器优化的重排序，在不改变单线程的程序语义的前提下。</p>
-<p>​	2）（处理器级别）指令级并行的重排序，不存在数据依赖性。</p>
-<p>​	3）（处理器级别）内存系统的重排序，利用缓存和读&#x2F;写缓冲区</p>
-<p>通过编译器重排规则和处理器层的内存屏障指令来禁止相应类型的重排序。</p>
-<p>处理器中会有写缓冲区（读内存，写缓冲），处理器将要写进内存的数据先放入缓冲区，避免处理器继续等待和内存通信。但每个写缓冲区，仅对自己可见。写缓冲区中的数据也会被处理，批处理刷新写缓冲区，对同一内存地址的写要合并，此时会发生重排序。</p>
-<p>（此处便是一个多机缓存的场景）</p>
-<p>因为缓冲区的存在，所以处理器的读&#x2F;写顺序，和内存中的读&#x2F;写顺序不一定一致。</p>
-<h4 id="内存屏障指令"><a href="#内存屏障指令" class="headerlink" title="内存屏障指令"></a>内存屏障指令</h4><p>共4类Barriers, 由store、load两个组成，分别是loadload&#x2F; loadstore &#x2F; storeload&#x2F; storestore.</p>
-<p>load为读，数据装载；store为写，写数据可见即刷新到缓存。</p>
-<h5 id="确保（）的顺序在（）之前。"><a href="#确保（）的顺序在（）之前。" class="headerlink" title="确保（）的顺序在（）之前。"></a>确保（）的顺序在（）之前。</h5><h4 id="happens-before"><a href="#happens-before" class="headerlink" title="happens-before"></a>happens-before</h4><p>一个操作执行的结果需要对另一个操作可见。</p>
-<ul>
-<li>程序顺序规则 （按书写顺序）</li>
-<li>监视器锁规则（先解锁再加锁）</li>
-<li>volatile变量   （先写再读）</li>
-<li>传递性 （a-b,b-c –&gt; a-c）</li>
-</ul>
-<p>但是不代表执行顺序。只是结果可见性。</p>
-<h4 id="重排序"><a href="#重排序" class="headerlink" title="重排序"></a>重排序</h4><h5 id="单线程"><a href="#单线程" class="headerlink" title="单线程"></a>单线程</h5><ul>
-<li><p>有数据依赖关系的操作不会被重排序。（指单线程，多线程机器不考虑）</p>
-</li>
-<li><p>as-if-serial, 被重排序的单线程执行也不会改变原来的结果。</p>
-</li>
-</ul>
-<p>控制依赖：会猜测为真计算并存入重排序缓冲，若为真则写入。</p>
-<p>多线程控制依赖重排序会影响结果，单线程不会。</p>
-<h4 id="顺序一致性"><a href="#顺序一致性" class="headerlink" title="顺序一致性"></a>顺序一致性</h4><p>是理论参考模型，如果程序正确同步，程序的执行将具有顺序一致性，即执行结果和顺序一致性内存模型中的执行结果相同。</p>
-<p>内存模型：</p>
-<ul>
-<li>一个线程中的所有操作必须按照程序的顺序来执行</li>
-<li>不管程序是否同步，所有线程都只能看到一个单一的操作执行顺序，每个操作原子执行并立刻对所有线程可见。</li>
-</ul>
-<h5 id="JMM不保证顺序一致性。临界区内的代码可以重排序。"><a href="#JMM不保证顺序一致性。临界区内的代码可以重排序。" class="headerlink" title="JMM不保证顺序一致性。临界区内的代码可以重排序。"></a>JMM不保证顺序一致性。临界区内的代码可以重排序。</h5><p>最小安全性：要么已经被写过，要么初始化为（0,NULL,False）。分配对象时，先内存清零，然后分配。分配时就会完成默认初始化。</p>
-<h4 id="volatile的内存语义"><a href="#volatile的内存语义" class="headerlink" title="volatile的内存语义"></a>volatile的内存语义</h4><p>可见性：读前都能看到最后的写。</p>
-<p>原子性：对单个volatile变量读&#x2F;写具有原子性。但复合操作没有，如i++。</p>
-<h5 id="内存语义：写线程对读线程发了一条消息。"><a href="#内存语义：写线程对读线程发了一条消息。" class="headerlink" title="内存语义：写线程对读线程发了一条消息。"></a>内存语义：写线程对读线程发了一条消息。</h5><p>过程：写线程先把本地内存中的共享变量值写到主内存，读线程先把本地内存中的共享变量值置为无效，再从主内存读。</p>
-<p>JMM实现：</p>
-<p>​	基于保守策略插入内存屏障实现，禁止重排序。</p>
-<p>​	策略：在读前或写后都加一个storeload屏障</p>
-<h5 id="volatile用法"><a href="#volatile用法" class="headerlink" title="volatile用法"></a>volatile用法</h5><p>条件：1. 对变量的写不依赖当前值 2. 其他变量不变式不含该变量</p>
-<p>常用：</p>
-<ul>
-<li>状态标记</li>
-<li>一次性安全发布(线程安全或有效不可变的对象)</li>
-<li>独立观察的状态标记（传感器）</li>
-<li>volatile bean， 属性是volatile的能够保证类对象线程安全</li>
-<li>开销较少的读写锁策略：读多写。少可用。sychronized(写)和volatile(读)</li>
-</ul>
-<h4 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h4><p>可以让临界区的代码互斥执行，也能让线程间传递消息。</p>
-<h5 id="内存语义：a解锁-b加锁的过程实际上可以看成a对b发了消息。"><a href="#内存语义：a解锁-b加锁的过程实际上可以看成a对b发了消息。" class="headerlink" title="内存语义：a解锁 b加锁的过程实际上可以看成a对b发了消息。"></a>内存语义：a解锁 b加锁的过程实际上可以看成a对b发了消息。</h5><h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><p>​	 借助于AQS，AQS使用一个整型的volatile state变量记录锁状态。</p>
-<p>reentrantlock分为公平锁和非公平锁。公平锁会直接读state然后写state，非公平要用cas竞争锁。</p>
-<p>CAS同时具有volatile读 和 写 的内存语义，因为CAS会禁止当前指令和前后的读写指令重排序，并且会将写缓冲的所有数据全部刷到内存里。</p>
-<p>通用化的concurrent包：</p>
-<ul>
-<li><p>声明变量为volatile</p>
-</li>
-<li><p>使用CAS的原子条件更新来实现线程之间的同步</p>
-</li>
-<li><p>配合volatile的读&#x2F;写和CAS具有的volatile读和写的内存语义</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/30/juc-charpter2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Weitianle">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Learn And Teach">
-      <meta itemprop="description" content="Stay hungry">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Learn And Teach">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/30/juc-charpter2/" class="post-title-link" itemprop="url">java-concurrency-charpter-two</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-30 15:14:25" itemprop="dateCreated datePublished" datetime="2022-06-30T15:14:25+08:00">2022-06-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-04 11:02:48" itemprop="dateModified" datetime="2022-07-04T11:02:48+08:00">2022-07-04</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="JUC-charpter-two-底层实现原理"><a href="#JUC-charpter-two-底层实现原理" class="headerlink" title="JUC-charpter two-底层实现原理"></a>JUC-charpter two-底层实现原理</h1><h2 id="2-1-volatile"><a href="#2-1-volatile" class="headerlink" title="2.1 volatile"></a>2.1 volatile</h2><ol>
-<li><p>volatile最关键的特性：可见性</p>
-<p>可见性、防止指令重排序。</p>
-<p>可见性：多线程共享变量，一个线程修改时，另一个线程也能读到。</p>
-<p>​	实现：用lock前缀指令会引起处理器缓存回写到内存，此时通过处理器缓存一致性协议保证一致性。</p>
-<p>特点：无需加锁，允许线程访问共享变量，线程用排他锁获取。但使用volatile不需加锁，保证可见性，无需上下文切换。‘</p>
-<p>性能优化：追加字节</p>
-</li>
-</ol>
-<h3 id="2-2-synchronized的实现原理"><a href="#2-2-synchronized的实现原理" class="headerlink" title="2.2 synchronized的实现原理"></a>2.2 synchronized的实现原理</h3><ol>
-<li><p>属性：锁</p>
-</li>
-<li><p>锁谁？</p>
-<ul>
-<li>synchronized void method() {}     普通同步方法 锁当前实例</li>
-<li>synchronized static void method() {} 静态同步方法 锁类Class对象</li>
-<li>synchronized(Object) {}。同步方法块（代码块），括号里是谁就锁谁</li>
-</ul>
-<ol start="3">
-<li>怎么锁的？</li>
-</ol>
-<p>都可以用monitor对象实现的，monitorenter 和monitorexit配套使用。拿到monitor即拿到锁。</p>
-<p>锁存在哪里？</p>
-<p>​	在java对象头。</p>
-<p>​	那对象头是什么？</p>
-<p>​		存储java对象信息的地方</p>
-<p>对象头长度：数组3字，非数组2字。</p>
-<table>
-<thead>
-<tr>
-<th>长度</th>
-<th>内容</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>32&#x2F;64</td>
-<td>Mark Word</td>
-<td align="center">存储对象的hashcode或锁信息</td>
-</tr>
-<tr>
-<td></td>
-<td>Class Metadata Address</td>
-<td align="center">存储到对象类型数据的指针</td>
-</tr>
-<tr>
-<td></td>
-<td>Array length</td>
-<td align="center">对象数组长度（如果是数组的话）</td>
-</tr>
-</tbody></table>
-<p>对象头存储结构：</p>
-<p> 其中有mark word。用于存储hashcode 分代年龄、和锁标记位。</p>
-<table>
-<thead>
-<tr>
-<th>锁状态</th>
-<th>25bit</th>
-<th>4bit</th>
-<th>1bit 是否偏向锁</th>
-<th>2bit 锁标志位</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>无锁</td>
-<td>对象hashcode</td>
-<td>对象分代年龄</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>轻量级锁</td>
-<td>指向栈中锁记录的指针(30bit)</td>
-<td></td>
-<td></td>
-<td>00</td>
-</tr>
-<tr>
-<td>重量级锁</td>
-<td>指向互斥量的指针(30)</td>
-<td></td>
-<td></td>
-<td>10</td>
-</tr>
-<tr>
-<td>GC标记</td>
-<td>空</td>
-<td></td>
-<td></td>
-<td>11</td>
-</tr>
-<tr>
-<td>偏向锁</td>
-<td>线程id、epoch(用时间戳表示有效性)</td>
-<td>对象分代年龄</td>
-<td></td>
-<td>01</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>具体锁的过程？</p>
-<ul>
-<li><p>首先是偏向锁： 大多数情况下，都是同一个线程多次进入同步块。为了降低获得锁的消耗，使用偏向锁。</p>
-<ul>
-<li><p>过程：</p>
-<ul>
-<li><p>线程进入同步块前：</p>
-<p>栈帧创建空间用来存锁记录，将对象头里的信息暂存到栈帧中。用CAS将线程id放进对象头和栈帧锁记录中。然后进入同步块执行代码。</p>
-</li>
-<li><p>再次进入：</p>
-<p>不需要CAS加锁和解锁了，只要对比对象头里的线程id和栈帧里的线程id是否一致：</p>
-<ul>
-<li>若一致：直接进</li>
-</ul>
-<ul>
-<li>若不一致，检查偏向锁是否设置成了1。如果设置了，则用CAS修改对象头里的线程id。如果没有，则用CAS竞争锁。</li>
-</ul>
-</li>
-<li><p>用完了，要撤销：</p>
-<ul>
-<li>竞争出现了才会撤销，不然对象头里还是会存当前线程id.</li>
-<li>过程：<ul>
-<li>先暂停拥有偏向锁的线程，检查它是否活动，不活动则恢复无锁。若活动，说明此时发生竞争。但偏向锁的初衷就是同一个线程多次进入，这里就不再适用偏向锁了。所以要么偏向其他线程，要么恢复无锁或标记该线程不适合作为偏向锁。</li>
-<li>唤醒暂停的线程。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>可以不用，设置jvm参数。此时就会默认进入轻量级锁。</p>
-</li>
-</ul>
-</li>
-<li><p>来到轻量级锁</p>
-<ul>
-<li><p>过程：</p>
-<ul>
-<li><p>线程进入同步块前：</p>
-<p>栈帧创建空间，存储锁记录。对象头的mark word先复制到锁记录中。然后CAS尝试将mark word替换为指向栈帧中锁记录的指针 ，若成功则拿到锁，否则有人竞争，开始自旋。</p>
-<p>自旋：会消耗cpu,  锁升级成重量级锁后，其他线程不会再自旋获取锁，会直接阻塞。只有锁释放后才会唤醒，重新争夺。</p>
-</li>
-<li><p>解锁：</p>
-<ul>
-<li>CAS将栈帧中的锁记录替换回对象头，如果成功则没有竞争，解锁成功。否则表示有竞争，锁膨胀成重量级锁，且不会再恢复成轻量级锁。</li>
-<li>mark word指向互斥量，标记为重量级锁，不再指向锁记录地址。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>重量级锁</p>
-</li>
-</ul>
-<p>​</p>
-</li>
-</ol>
-<p>	</p>
-<h3 id="2-3-原子操作"><a href="#2-3-原子操作" class="headerlink" title="2.3 原子操作"></a>2.3 原子操作</h3><p>定义：不可被中断的一个或一系列操作。</p>
-<p>处理器通过缓存加锁和总线加锁：</p>
-<ul>
-<li><p>总线加锁</p>
-<p>声言一个LOCK # 信号，告诉我要独占。其他线程请求会阻塞。cpu和内存暂停通信，效率低。</p>
-</li>
-<li><p>缓存加锁</p>
-<p>修改内部内存地址，允许缓存一致性机制。</p>
-</li>
-</ul>
-<p>java通过锁和CAS原子操作：</p>
-<ul>
-<li><p>循环CAS</p>
-<p>处理器提供的指令。</p>
-<p>问题：</p>
-<ol>
-<li>ABA问题，在比较过程中，A被其他线程改成了B又改回了A, 此时CAS认为可以更新。 处理： 版本号：1A 2B 3C， java中提供一个类（引用和标志）。</li>
-<li>循环时间长开销变大，解决：jvm支持处理器的pause。</li>
-<li>只能保证一个共享变量。解决：用锁、合并成一个变量、放在对象里。</li>
-</ol>
-</li>
-<li><p>锁</p>
-<p>锁住资源再更新。</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
